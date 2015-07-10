@@ -1,0 +1,129 @@
+
+$white: #FFF;
+$trans-white: rgba(255,255,255,0.8);
+
+
+.sidebar-container {
+  width: $sidebar-width;
+  // @include span (2);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 990;
+  color: #FFF;
+  background-color: #000;
+}
+
+.controls {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+   .prev, .play {
+    @include span (4);
+  }
+  .next {
+    @include span (4 at 9);
+  }
+  img {
+    width: 75%;
+  }
+}
+
+.top-nav-container {
+  // padding: 1em 0; 
+  @include container;
+  position: fixed;
+  height: $top-height;
+  top: 0;
+  left: $sidebar-width;
+  width: calc(100% - 15em); // lines up grid
+  background: linear-gradient(to right, rgba(255,0,21,1) 0%, rgba(255,0,102,1) 100%);
+  .search {
+    @include span(12);
+    background-color: transparent;
+    border: none;
+    color: $white;
+    margin-top: 1em;
+    font-weight: 100;
+    font-size: 2em;
+  }
+  :focus {
+    outline: none;
+  }
+  // Placholder styling
+  ::-webkit-input-placeholder {
+   color: $trans-white;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+   color: $trans-white;
+  }
+  ::-moz-placeholder {  /* Firefox 19+ */
+   color: $trans-white;
+  }
+  :-ms-input-placeholder {  
+   color: $trans-white;
+  }
+}
+
+.search-results {
+  @include span(12);
+  padding: 1em 0;
+  color: $white;
+  a {
+    color: $white;
+  }
+  .cue, .save, .source {
+    @include span(1);
+  }
+  .title {
+    @include span(3);
+  }
+  .artist, .album {
+    @include span(2);
+  }
+  .duration {
+    @include span(1 at 12);
+  }  
+}
+
+.top-nav {
+  @include span(12);
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background-color:rgba(255,255,255,.2);
+  a {
+    @include span(2);
+    text-decoration: none;
+    color: $white;
+  }
+}
+
+.library-container {
+}
+
+.library {
+  background-color: blue;
+  @include span(12);
+  .cue, .save, .source {
+    @include span(1);
+  }
+  .title {
+    @include span(3);
+  }
+  .artist, .album {
+    @include span(2);
+  }
+  .duration {
+    @include span(1 at 12);
+  } 
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
