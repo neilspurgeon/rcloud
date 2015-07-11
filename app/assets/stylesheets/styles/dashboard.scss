@@ -102,8 +102,24 @@ $trans-white: rgba(255,255,255,0.8);
 .library-container {
 }
 
+.library-filters {
+  @include span(12);
+  background-color: $trans-white;
+}
+
+.library-filter-labels {
+  @include span(12);
+}
+
+.genre-filter, .artist-filter {
+  @include span(4);
+}
+
+.album-filter {
+  @include span(4 at 9);
+}
+
 .library {
-  background-color: blue;
   @include span(12);
   .cue, .save, .source {
     @include span(1);
