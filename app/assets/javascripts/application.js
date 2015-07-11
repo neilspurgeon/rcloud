@@ -51,6 +51,7 @@ app.controller("SearchCtrl", function ($scope, $http) {
         $scope.query = null;
         angular.element("form")[0].reset();
         angular.element("form")[0].blur();
+        $scope.$apply();
       },
       error: function(response) {
         console.log("error");
@@ -67,6 +68,8 @@ app.controller("SearchCtrl", function ($scope, $http) {
 
 
 app.controller("PlayerCtrl", function ($scope) {
+  $scope.nowPlaying = {};
+
   $scope.togglePause = function() {
     R.player.togglePause()
   }
