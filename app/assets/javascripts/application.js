@@ -14,3 +14,10 @@
 //= require jquery_ujs
 //= require angular
 //= require_tree .
+
+
+var app = angular.module("rcloudApp", []);
+
+app.controller("MainCtrl", function ($scope) {
+  $scope.greeting = "Hello World!";
+});
