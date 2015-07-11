@@ -29,9 +29,12 @@ app.controller("MainCtrl", function ($scope) {
 
 // }
 
-app.controller("SearchCtrl", function ($scope) {
+app.controller("SearchCtrl", function ($scope, $http) {
+  $scope.searchQuery = "";
+  
+
   $scope.search = function(query) {
-    console.log("submited");
+    $scope.search.results = "";
     // Rdio Search
     // –––––––––––––––
     R.request({
@@ -43,7 +46,11 @@ app.controller("SearchCtrl", function ($scope) {
       },
       success: function(response) {
         console.log("success");
-        $scope.searchResults = response.result.results;    
+        $scope.searchQuery = query;
+        $scope.search.results = response.result.results;
+        $scope.query = null;
+        angular.element("form")[0].reset();
+        angular.element("form")[0].blur();
       },
       error: function(response) {
         console.log("error");
@@ -51,4 +58,47 @@ app.controller("SearchCtrl", function ($scope) {
       }
     });
   };
+
+  $scope.play = function(track) {
+    console.log(track)
+    R.player.play({source: track.key});
+  }
 });
+
+
+app.controller("PlayerCtrl", function ($scope) {
+  $scope.togglePause = function() {
+    R.player.togglePause()
+  }
+  $scope.previous = function() {
+    R.player.previous()
+  }
+  $scope.next = function() {
+    R.player.next()
+  }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

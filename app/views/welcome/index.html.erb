@@ -11,10 +11,10 @@
     <h2 class="total">04:14</h2>
   </div>
 
-  <div class="controls">
-    <a href="#" class="prev"><%= image_tag "prev-btn.svg" %></a>
-    <a href="#" class="play"><%= image_tag "play-btn.svg" %></a>
-    <a href="#" class="next"><%= image_tag "next-btn.svg" %></a>
+  <div class="controls" ng-controller="PlayerCtrl">
+    <a href="" class="prev" ng-click="previous()"><%= image_tag "prev-btn.svg" %></a>
+    <a href="" class="play" ng-click="togglePause()"><%= image_tag "play-btn.svg" %></a>
+    <a href="" class="next" ng-click="next()"><%= image_tag "next-btn.svg" %></a>
   </div>
   cue
   album art
@@ -27,14 +27,16 @@
 
   <!-- rdio + soundcloud search -->
   <div ng-controller="SearchCtrl">
-    <form>
-      <input ng-model="query" class="search" type="text" placeholder="Search artist, track, or album" />
-      <input type="submit" ng-click="search(query)" />
+  {{objectOnScope}}
+    <form ng-submit="search(search.query)">
+      <input ng-model="search.query" class="search" type="text" placeholder="Search artist, track, or album" />
+      <input type="submit" />
     </form>
+    {{searchQuery}}
     <ul class="search-results">
-      <li ng-repeat="track in searchResults">
+      <li ng-repeat="track in search.results">
         <a href="#" class="cue">+ cue</a>
-        <a href="#" class="save">save</a>
+        <a href="" class="save" ng-click="play(track)">Play</a>
         <span class="title">title</span>
         <span class="artist">{{track.artist}}a</span>
         <span class="album">{{track.name}}</span>
