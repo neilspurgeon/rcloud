@@ -16,8 +16,6 @@
     <a href="#" class="play"><%= image_tag "play-btn.svg" %></a>
     <a href="#" class="next"><%= image_tag "next-btn.svg" %></a>
   </div>
-  now playing
-  controls
   cue
   album art
 </div>
@@ -28,18 +26,23 @@
   </nav>
 
   <!-- rdio + soundcloud search -->
-  <input class="search" type="text" placeholder="Search artist, track, or album" />
-  <ul class="search-results">
-    <li>
-      <a href="#" class="cue">+ cue</a>
-      <a href="#" class="save">save</a>
-      <span class="title">Title</span>
-      <span class="artist">Artist</span>
-      <span class="album">Album</span>
-      <span class="source">Source</span>
-      <span class="duration">04:15</span>
-    </li>
-  </ul>
+  <div ng-controller="SearchCtrl">
+    <form>
+      <input ng-model="query" class="search" type="text" placeholder="Search artist, track, or album" />
+      <input type="submit" ng-click="search(query)" />
+    </form>
+    <ul class="search-results">
+      <li ng-repeat="track in searchResults">
+        <a href="#" class="cue">+ cue</a>
+        <a href="#" class="save">save</a>
+        <span class="title">title</span>
+        <span class="artist">{{track.artist}}a</span>
+        <span class="album">{{track.name}}</span>
+        <span class="source">Source</span>
+        <span class="duration">04:15</span>
+      </li>
+    </ul>
+  </div>
 
   <!--  library filters -->
   <div class="library-filters">

@@ -21,3 +21,34 @@ var app = angular.module("rcloudApp", []);
 app.controller("MainCtrl", function ($scope) {
   $scope.greeting = "Hello World!";
 });
+
+// var MainCtrl = function() {
+// }
+
+// MainCtrl.prototype.search = function(query) {
+
+// }
+
+app.controller("SearchCtrl", function ($scope) {
+  $scope.search = function(query) {
+    console.log("submited");
+    // Rdio Search
+    // –––––––––––––––
+    R.request({
+      method: "search", 
+      content: {
+        query: query, 
+        types: "Album", // changes to find artist, track, or album
+        count: 10
+      },
+      success: function(response) {
+        console.log("success");
+        $scope.searchResults = response.result.results;    
+      },
+      error: function(response) {
+        console.log("error");
+        $(".error").text(response.message);
+      }
+    });
+  };
+});

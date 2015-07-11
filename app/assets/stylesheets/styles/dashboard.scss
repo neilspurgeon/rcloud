@@ -67,14 +67,20 @@ $trans-white: rgba(255,255,255,0.8);
 }
 
 .search-results {
-  @include span(12);
   padding: 1em 0;
-  color: $white;
+  li {
+    @include span(12);
+    color: $white;
+    clear: both;
+  }
   a {
     color: $white;
   }
-  .cue, .save, .source {
+  .cue, .save {
     @include span(1);
+  }
+  .source {
+    @include span(2)
   }
   .title {
     @include span(3);
