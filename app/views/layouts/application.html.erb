@@ -6,15 +6,12 @@
 
   <script src="https://www.rdio.com/api/api.js?client_id=x6mk7hhqgzdfhnpgd4yadsp4du"></script>
   <%= javascript_include_tag 'application' %>
+  
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="rcloudApp">
-
+  
   <%= yield %>
-
- <div ng-controller="MainCtrl">
-      {{greeting}}
-  </div>
 
 </body>
 </html>
