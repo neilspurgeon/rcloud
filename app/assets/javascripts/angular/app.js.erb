@@ -1,3 +1,5 @@
+//= depend_on_asset "angular/main.html"
+
 var app = angular.module("rcloudApp", ["ngRoute"]);
 
 
@@ -7,7 +9,7 @@ app.config(function ($routeProvider) {
   $routeProvider
     .when("/", {
       controller: "MainCtrl",
-      templateUrl: "assets/angular/main.html"
+      templateUrl: "<%= asset_path('angular/main.html') %>"
     })
     .otherwise({
       redirectTo: "/"

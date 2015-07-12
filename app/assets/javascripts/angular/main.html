@@ -1,1 +1,66 @@
-mainasdasdasdasdasdasd
+<!-- Sidbar -->
+<div class="sidebar-container">
+  
+  <div class="track-info">
+    <h1 class="track">Fireworks</h1>
+    <h2 class="artist">Animal Collective</h2>
+  </div>
+
+  <div class="track-time">
+    <h1 class="elapsed">00:47</h2>
+    <h2 class="total">04:14</h2>
+  </div>
+
+  <div class="controls" ng-controller="PlayerCtrl">
+    <a href="" class="prev" ng-click="previous()"><img src="img/prev-btn.svg" /></a>
+    <a href="" class="play" ng-click="togglePause()"><img src="./img/play-btn.svg" /></a>
+    <a href="" class="next" ng-click="next()"><img src="./img/next-btn.svg" /></a>
+  </div>
+  cue
+  album art
+</div>
+
+
+
+  <!--  library filters -->
+  <div class="library-filters">
+    <div class="library-filter-labels">
+      LABELS
+    </div>
+    
+    <div class="genre-filter">
+      FILTER GENRES
+    </div>
+    
+    <div class="artist-filter">
+      FILTER ARTISTS
+    </div>
+    
+    <div class="album-filter">
+      FILTER ALBUMS     
+    </div>
+
+  </div>
+</div>
+
+<!-- Main  -->
+<div class="main-container">
+
+  <!-- Library Container -->
+    <div class="library-container">
+
+    <!-- library  -->
+    <ul class="library">
+      <li>
+        <a href="#" class="cue">+ cue</a>
+        <a href="#" class="save">save</a>
+        <span class="title">Title</span>
+        <span class="artist">Artist</span>
+        <span class="album">Album</span>
+        <span class="source">Source</span>
+        <span class="duration">04:15</span>
+      </li>
+    </ul>
+  </div>
+
+</div>
