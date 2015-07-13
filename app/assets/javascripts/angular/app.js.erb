@@ -46,7 +46,7 @@ app.controller("MainCtrl", function ($scope, $http) {
     }
 
   $scope.search = function(query) {
-  $scope.search.results = "";
+  $scope.search.results = [];
   // Rdio Search
   // –––––––––––––––
   R.request({
@@ -57,9 +57,10 @@ app.controller("MainCtrl", function ($scope, $http) {
       count: 10
     },
     success: function(response) {
-      console.log("success");
-      $scope.searchQuery = query;
-      $scope.search.results = response.result.results;
+      var existingResults = $scope.search.results;
+      var newResults = response.result.results;
+      $scope.search.results = existingResults.concat(newResults);
+       
       $scope.query = null;
       angular.element("form")[0].reset();
       angular.element("form")[0].blur();
