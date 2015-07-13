@@ -45,7 +45,7 @@ app.controller("MainCtrl", function ($scope, $http) {
 
   $scope.search = function(query) {
     $scope.search.results = [];
-    
+
     // Rdio Search
     // –––––––––––––––
     R.request({
@@ -56,16 +56,20 @@ app.controller("MainCtrl", function ($scope, $http) {
         count: 100
       },
       success: function(response) {
-        // add results to array
-        var existingResults = $scope.search.results;
-        var newResults = response.result.results;
-        $scope.search.results = existingResults.concat(newResults);
-         console.log($scope.search.results)
+        var tracks = response.result.results;
+        // add rdio source to identify which player to use
+        // add to results array
+        for(var i=0; i<tracks.length; i++ ) {
+          var track = tracks[i];
+          track["source"] = "rdio";
+          $scope.search.results.push(track)
+        }
         
         // reset form       
         $scope.query = null;
         angular.element("form")[0].reset();
         angular.element("form")[0].blur();
+        // update scope
         $scope.$apply();
       },
       error: function(response) {
@@ -77,11 +81,18 @@ app.controller("MainCtrl", function ($scope, $http) {
     // SoundCloud Search
     // –––––––––––––––
     SC.get('/tracks', { q: query, license: 'cc-by-sa' }, function(tracks) {
-      var existingResults = $scope.search.results;
-      $scope.search.results = existingResults.concat(tracks);
-      console.log($scope.search.results)
+      // add soundcloud key to identify which player to use
+      // add to results array
+      for(var i=0; i<tracks.length; i++ ) {
+        var track = tracks[i];
+        track["source"] = "soundcloud";
+        $scope.search.results.push(track)
+      }
+
+      // update scope
       $scope.$apply();
     });
+
 
   };
 
@@ -119,8 +130,13 @@ SC.initialize({
 
 // Rcloud Player
 var RcloudPlayer = function () {
+  var self = this
   this.queue = [];
   this.nowPlaying = this.queue[0];
+  this.nowPlayingSource = function() {
+    // return rdio or soundcloud
+    self.queue[0]
+  }
 
   this.play = function (track) {
     console.log("RcloudPlayer")
