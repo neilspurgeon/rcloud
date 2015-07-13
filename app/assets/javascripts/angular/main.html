@@ -45,11 +45,12 @@
         <li ng-repeat="track in search.results">
           <a href="#" class="cue">+ cue</a>
           <a href="" class="save" ng-click="play(track)">Play</a>
-          <span class="title">{{track.name}}</span>
-          <span class="artist">{{track.artist}}</span>
+          <span class="title">{{track.name || track.title}}</span>
+          <span class="artist">{{track.artist || track.user[0].name}}</span>
           <span class="album">{{track.name}}</span>
           <span class="source">Source</span>
-          <span class="duration">04:15</span>
+          <!-- Both have duration key (Rdio=seconds, SoundCloud=Milliseconds) -->
+          <span class="duration">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span>
         </li>
       </ul>
     </div>
