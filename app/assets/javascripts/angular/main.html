@@ -40,17 +40,19 @@
       <!-- <input type="submit" /> -->
     </form>
     <button ng-class="searchCloseBttn" ng-click="searchOverlay=''; closeSearch()" ng-show="search.results" class="searchCloseBttn">X</button>
-    <ul class="search-results">
-      <li ng-repeat="track in search.results">
-        <a href="#" class="cue">+ cue</a>
-        <a href="" class="save" ng-click="play(track)">Play</a>
-        <span class="title">title</span>
-        <span class="artist">{{track.artist}}</span>
-        <span class="album">{{track.name}}</span>
-        <span class="source">Source</span>
-        <span class="duration">04:15</span>
-      </li>
-    </ul>
+    <div class="search-results-container">
+      <ul class="search-results">
+        <li ng-repeat="track in search.results">
+          <a href="#" class="cue">+ cue</a>
+          <a href="" class="save" ng-click="play(track)">Play</a>
+          <span class="title">{{track.name}}</span>
+          <span class="artist">{{track.artist}}</span>
+          <span class="album">{{track.name}}</span>
+          <span class="source">Source</span>
+          <span class="duration">04:15</span>
+        </li>
+      </ul>
+    </div>
   </div>
 
 

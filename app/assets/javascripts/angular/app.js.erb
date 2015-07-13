@@ -54,14 +54,15 @@ app.controller("MainCtrl", function ($scope, $http) {
       method: "search", 
       content: {
         query: query, 
-        types: "Album", // changes to find artist, track, or album
-        count: 10
+        types: "Track", // changes to find artist, track, or album
+        count: 100
       },
       success: function(response) {
         // add results to array
         var existingResults = $scope.search.results;
         var newResults = response.result.results;
         $scope.search.results = existingResults.concat(newResults);
+         console.log($scope.search.results)
         
         // reset form       
         $scope.query = null;

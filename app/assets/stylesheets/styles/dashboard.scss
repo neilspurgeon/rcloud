@@ -72,6 +72,11 @@ $trans-white: rgba(255,255,255,0.8);
   transition: all .01s ease;
 }
 
+.search-results-container {
+  overflow: auto;
+  height: 100vh;
+}
+
 .search-results {
   padding: 1em 0;
   li {
