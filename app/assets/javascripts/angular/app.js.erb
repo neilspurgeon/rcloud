@@ -127,42 +127,48 @@ app.controller("PlayerCtrl", function ($scope) {
 
 
 
-// Rcloud Player
+// Rcloud Player - Set Up
+// ––––––––––––––––––––––––––––––––––––––––––––––––––––
 var RcloudPlayer = function () {
-  var self = this
+  var self = this;
   this.queue = [];
   this.nowPlaying = this.queue[0];
   this.nowPlayingSource = self.nowPlaying ? self.nowPlaying.source : null;
   this.soundCloudPlayer;
-  this.soundCloudSettings = {useHTML5Audio: true, preferFlash: false}
+  this.soundCloudSettings = {useHTML5Audio: true, preferFlash: false};
 
   // SoundCloud player Init
   SC.initialize({
     client_id: 'f3a51baca351723ad612f5318b1be836',
     redirect_uri: 'http://localhost:3000'
   });
+}
 
-  this.play = function (track) {
-    // add track to beggining onf queue
-    self.queue[0] = track;
-    // determine Rdio or SoundCloud player
-    if (track.source === "rdio") { 
-      R.player.play({source: track.key})
-    } else if (track.source === "soundCloud") {
-      SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){  
-        self.soundCloudPlayer = sound;                    // set track
-        html5Audio = sound._player._html5Audio;           // use html audio
-        html5Audio.addEventListener('ended', function(){  
-          // track is over, play next in queue
-          console.log('event fired: ended');
-        });
-        self.soundCloudPlayer.play();
+// Rcloud Player - Play
+// ––––––––––––––––––––––––––––––––––––––––––––––––––––
+RcloudPlayer.prototype.play = function (track) {
+  var self = this;
+  // add track to beggining of queue
+  this.queue[0] = track;
+  // determine Rdio or SoundCloud player
+  if (track.source === "rdio") { 
+    R.player.play({source: track.key})
+  } else if (track.source === "soundCloud") {
+    SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){  
+      self.soundCloudPlayer = sound;                    // set track
+      html5Audio = sound._player._html5Audio;           // use html audio
+      html5Audio.addEventListener('ended', function(){  
+        // track is over, play next in queue
+        console.log('event fired: ended');
       });
+      self.soundCloudPlayer.play();
+    });
 
-    }
   }
 }
 
+//  Rcloud Player - Init 
+// ––––––––––––––––––––––––––––––––––––––––––––––––––––
 var rcloud = new RcloudPlayer();
 
 // time filter
