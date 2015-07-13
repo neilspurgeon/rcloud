@@ -20,6 +20,39 @@
   album art
 </div>
 
+<!-- Top Nav -->
+
+<div class="top-nav-container" ng-class="searchOverlay">
+  <nav class="top-nav" ng-controller="MainCtrl">
+    <a href="#" class="home">RCLOUD</a>
+
+      <li ng-show="currentUser">{{ currentUser.email }}</li>
+      <li><a href="" ng-show="currentUser" ng-click="signOut()">Sign Out</a>
+      <li ng-hide="currentUser"><a href="/users/sign_up/">Create Account</a></li>
+      <li ng-hide="currentUser"><a href="/users/sign_in/">Sign In</a></li>
+  </nav>
+
+  <!-- rdio + soundcloud search -->
+
+    
+    <form ng-submit="search(search.query); searchOverlay='searchOpen'">
+      <input ng-model="search.query" class="search" type="text" placeholder="Search artist, track, or album" />
+      <!-- <input type="submit" /> -->
+    </form>
+    <button ng-class="searchCloseBttn" ng-click="searchOverlay=''; closeSearch()" ng-show="search.results" class="searchCloseBttn">X</button>
+    <ul class="search-results">
+      <li ng-repeat="track in search.results">
+        <a href="#" class="cue">+ cue</a>
+        <a href="" class="save" ng-click="play(track)">Play</a>
+        <span class="title">title</span>
+        <span class="artist">{{track.artist}}</span>
+        <span class="album">{{track.name}}</span>
+        <span class="source">Source</span>
+        <span class="duration">04:15</span>
+      </li>
+    </ul>
+  </div>
+
 
 
   <!--  library filters -->

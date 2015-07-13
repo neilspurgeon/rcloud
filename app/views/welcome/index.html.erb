@@ -1,36 +1,3 @@
 
-<!-- Top Nav -->
-<div class="top-nav-container">
-  <nav class="top-nav">
-    <a href="#" class="home">RCLOUD</a>
-    <% if current_user %>
-      <%= current_user.email %>
-      <%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %>
-    <% else %>
-      <a href="/users/sign_up/">Create Account</a>
-      <a href="/users/sign_in/">Sign In</a>
-    <% end %> 
-  </nav>
-
-  <!-- rdio + soundcloud search -->
-  <div ng-controller="SearchCtrl">
-    <form ng-submit="search(search.query)">
-      <input ng-model="search.query" class="search" type="text" placeholder="Search artist, track, or album" />
-      <!-- <input type="submit" /> -->
-    </form>
-    <ul class="search-results">
-      <li ng-repeat="track in search.results">
-        <a href="#" class="cue">+ cue</a>
-        <a href="" class="save" ng-click="play(track)">Play</a>
-        <span class="title">title</span>
-        <span class="artist">{{track.artist}}a</span>
-        <span class="album">{{track.name}}</span>
-        <span class="source">Source</span>
-        <span class="duration">04:15</span>
-      </li>
-    </ul>
-  </div>
-
-
   <!-- placeholder for views -->
   <div data-ng-view=""></div>

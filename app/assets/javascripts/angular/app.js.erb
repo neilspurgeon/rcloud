@@ -4,53 +4,77 @@ var app = angular.module("rcloudApp", ["ngRoute"]);
 
 
 // Routes
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $httpProvider) {
 
   $routeProvider
     .when("/", {
       controller: "MainCtrl",
       templateUrl: "<%= asset_path('angular/main.html') %>"
     })
+    .when("/account", {
+      controller: "AccountCtrl",
+      template: "account.html"
+    })
     .otherwise({
       redirectTo: "/"
     })
+
+  $httpProvider
+    .defaults.headers.common["X-CSRF-Token"] = $("meta[name=csrf-token]").attr("content");
 })
 
-app.controller("MainCtrl", function ($scope) {
-  $scope.greeting = "Hello World!";
-});
+app.controller("MainCtrl", function ($scope, $http) {
+  $scope.currentUser = null;
 
-app.controller("SearchCtrl", function ($scope, $http) {
-  $scope.searchQuery = "";
-  
+  $http.get("/account.json")
+    .success(function (user) {
+      $scope.currentUser = user;
+      console.log($scope.currentUser);
+    })
+
+    $scope.signIn = function() {
+      alert("sign in function")
+    }
+
+    $scope.signOut = function() {
+      alert("top")
+      $http.delete("/users/sign_out.json")
+        .success(function(res) {
+          $scope.currentUser = null;
+          alert("Yay!");
+        }) 
+    }
 
   $scope.search = function(query) {
-    $scope.search.results = "";
-    // Rdio Search
-    // –––––––––––––––
-    R.request({
-      method: "search", 
-      content: {
-        query: query, 
-        types: "Album", // changes to find artist, track, or album
-        count: 10
-      },
-      success: function(response) {
-        console.log("success");
-        $scope.searchQuery = query;
-        $scope.search.results = response.result.results;
-        $scope.query = null;
-        angular.element("form")[0].reset();
-        angular.element("form")[0].blur();
-
-        $scope.$apply();
-      },
-      error: function(response) {
-        console.log("error");
-        $(".error").text(response.message);
-      }
+  $scope.search.results = "";
+  // Rdio Search
+  // –––––––––––––––
+  R.request({
+    method: "search", 
+    content: {
+      query: query, 
+      types: "Album", // changes to find artist, track, or album
+      count: 10
+    },
+    success: function(response) {
+      console.log("success");
+      $scope.searchQuery = query;
+      $scope.search.results = response.result.results;
+      $scope.query = null;
+      angular.element("form")[0].reset();
+      angular.element("form")[0].blur();
+      $scope.$apply();
+    },
+    error: function(response) {
+      console.log("error");
+      $(".error").text(response.message);
+    }
     });
   };
+
+  $scope.closeSearch = function() {
+    $scope.search.results = null;
+  }
 
   $scope.play = function(track) {
     console.log(track)
@@ -73,6 +97,10 @@ app.controller("PlayerCtrl", function ($scope) {
   }
 
 });
+
+
+
+}
 
 
 
