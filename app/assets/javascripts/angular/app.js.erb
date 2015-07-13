@@ -131,6 +131,14 @@ var RcloudPlayer = function () {
       R.player.play({source: track.key})
     } else if (track.user) { // SoundCloud
 
+      SC.stream("/tracks/" + track.id, {
+        autoPlay: true
+      }, function(sound){  
+        SC.sound = sound;
+        SC.sound.play();
+        scPlaying = true;
+      });
+
     }
   }
 }
