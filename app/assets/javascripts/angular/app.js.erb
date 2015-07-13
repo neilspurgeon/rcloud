@@ -83,6 +83,7 @@ app.controller("MainCtrl", function ($scope, $http) {
       var existingResults = $scope.search.results;
       $scope.search.results = existingResults.concat(tracks);
       console.log($scope.search.results)
+      $scope.$apply();
     });
 
   };
