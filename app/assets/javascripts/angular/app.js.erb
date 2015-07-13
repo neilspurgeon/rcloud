@@ -78,7 +78,7 @@ app.controller("MainCtrl", function ($scope, $http) {
 
   $scope.play = function(track) {
     console.log(track)
-    R.player.play({source: track.key});
+    rcloud.play(track);
   }
 });
 
@@ -99,8 +99,26 @@ app.controller("PlayerCtrl", function ($scope) {
 });
 
 
+var RcloudPlayer = function () {
+  this.queue = [];
+  this.nowPlaying = this.queue[0];
 
+  this.play = function (track) {
+    console.log("RcloudPlayer")
+    console.log(track)
+    // determine Rdio or SoundCloud player
+    if (track.artist) {      // Rdio
+      alert("Rdio Player")
+      R.player.play({source: track.key})
+    } else if (track.user) { // SoundCloud
+
+    }
+  }
 }
+
+var rcloud = new RcloudPlayer();
+
+
 
 
 
