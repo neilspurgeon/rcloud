@@ -46,31 +46,45 @@ app.controller("MainCtrl", function ($scope, $http) {
     }
 
   $scope.search = function(query) {
-  $scope.search.results = [];
-  // Rdio Search
-  // –––––––––––––––
-  R.request({
-    method: "search", 
-    content: {
-      query: query, 
-      types: "Album", // changes to find artist, track, or album
-      count: 10
-    },
-    success: function(response) {
-      var existingResults = $scope.search.results;
-      var newResults = response.result.results;
-      $scope.search.results = existingResults.concat(newResults);
-       
-      $scope.query = null;
-      angular.element("form")[0].reset();
-      angular.element("form")[0].blur();
-      $scope.$apply();
-    },
-    error: function(response) {
-      console.log("error");
-      $(".error").text(response.message);
-    }
+    $scope.search.results = [];
+    
+    // Rdio Search
+    // –––––––––––––––
+    R.request({
+      method: "search", 
+      content: {
+        query: query, 
+        types: "Album", // changes to find artist, track, or album
+        count: 10
+      },
+      success: function(response) {
+        // add results to array
+        var existingResults = $scope.search.results;
+        var newResults = response.result.results;
+        $scope.search.results = existingResults.concat(newResults);
+        
+        // reset form       
+        $scope.query = null;
+        angular.element("form")[0].reset();
+        angular.element("form")[0].blur();
+        $scope.$apply();
+      },
+      error: function(response) {
+        console.log("error");
+        $(".error").text(response.message);
+      }
     });
+
+    // SoundCloud Search
+    // –––––––––––––––
+    SC.get('/tracks', { q: query, license: 'cc-by-sa' }, function(tracks) {
+      scTest = tracks;
+      console.log(tracks)
+      var existingResults = $scope.search.results;
+      $scope.search.results = existingResults.concat(tracks);
+      console.log($scope.search.results)
+    });
+
   };
 
   $scope.closeSearch = function() {
@@ -99,7 +113,13 @@ app.controller("PlayerCtrl", function ($scope) {
 
 });
 
+// SoundCloud Init
+SC.initialize({
+  client_id: 'f3a51baca351723ad612f5318b1be836',
+  redirect_uri: 'http://localhost:3000'
+});
 
+// Rcloud Player
 var RcloudPlayer = function () {
   this.queue = [];
   this.nowPlaying = this.queue[0];
