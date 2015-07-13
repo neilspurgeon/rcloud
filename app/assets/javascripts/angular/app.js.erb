@@ -17,11 +17,11 @@ app.config(function ($routeProvider, $httpProvider) {
     })
     .otherwise({
       redirectTo: "/"
-    })
+    });
 
   $httpProvider
     .defaults.headers.common["X-CSRF-Token"] = $("meta[name=csrf-token]").attr("content");
-})
+});
 
 app.controller("MainCtrl", function ($scope, $http) {
   $scope.currentUser = null;
@@ -30,18 +30,18 @@ app.controller("MainCtrl", function ($scope, $http) {
     .success(function (user) {
       $scope.currentUser = user;
       console.log("Get current User");
-    })
+    });
 
     $scope.signIn = function() {
-      alert("sign in function")
-    }
+      alert("sign in function");
+    };
 
     $scope.signOut = function() {
       $http.delete("/users/sign_out.json")
         .success(function(res) {
           $scope.currentUser = null;
-        }) 
-    }
+        });
+    };
 
   $scope.search = function(query) {
     $scope.search.results = [];
@@ -61,8 +61,8 @@ app.controller("MainCtrl", function ($scope, $http) {
         // add to results array
         for(var i=0; i<tracks.length; i++ ) {
           var track = tracks[i];
-          track["source"] = "rdio";
-          $scope.search.results.push(track)
+          track.source = "rdio";
+          $scope.search.results.push(track);
         }
         
         // reset form       
@@ -85,11 +85,11 @@ app.controller("MainCtrl", function ($scope, $http) {
       for(var i=0; i<tracks.length; i++) {
         var track = tracks[i];
         // add soundCloud key to identify which player to use
-        track["source"] = "soundCloud";
+        track.source = "soundCloud";
         // convert duration to seconds to match rdio
         track.duration = (track.duration / 1000);
         // add to results array
-        $scope.search.results.push(track)
+        $scope.search.results.push(track);
       }
 
       // update scope
@@ -101,12 +101,12 @@ app.controller("MainCtrl", function ($scope, $http) {
 
   $scope.closeSearch = function() {
     $scope.search.results = null;
-  }
+  };
 
   $scope.play = function(track) {
-    console.log(track)
+    console.log(track);
     rcloud.play(track);
-  }
+  };
 });
 
 
@@ -114,14 +114,14 @@ app.controller("PlayerCtrl", function ($scope) {
   $scope.nowPlaying = {};
 
   $scope.togglePause = function() {
-    R.player.togglePause()
-  }
+    R.player.togglePause();
+  };
   $scope.previous = function() {
-    R.player.previous()
-  }
+    R.player.previous();
+  };
   $scope.next = function() {
-    R.player.next()
-  }
+    R.player.next();
+  };
 
 });
 
@@ -134,7 +134,7 @@ var RcloudPlayer = function () {
   this.queue = [];
   this.nowPlaying = this.queue[0];
   this.nowPlayingSource = self.nowPlaying ? self.nowPlaying.source : null;
-  this.soundCloudPlayer;
+  this.soundCloudPlayer = null;
   this.soundCloudSettings = {useHTML5Audio: true, preferFlash: false};
 
   // SoundCloud player Init
@@ -142,9 +142,7 @@ var RcloudPlayer = function () {
     client_id: 'f3a51baca351723ad612f5318b1be836',
     redirect_uri: 'http://localhost:3000'
   });
-}
-
-
+};
 
 // Rcloud Player - Play
 // ––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -168,22 +166,37 @@ RcloudPlayer.prototype.play = function (track) {
       console.log(positionCounter);
       // we only the care about the second change...
       if (positionCounter === 2) {
-        alert("DONE");
+        // remove finished track from queue
+        self.queue.splice(0,1);
+        // play next track
+        if (self.queue[0]) {
+          rcloud.play(self.queue[0]);
+          console.log("Playing next track");
+        } else {
+          console.log("Nothing in queue");
+        }
       }
-    })
+    });
   } else if (track.source === "soundCloud") {
     SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){  
       self.soundCloudPlayer = sound;                    // set track
       html5Audio = sound._player._html5Audio;           // use html audio
       html5Audio.addEventListener('ended', function(){  
-        // track is over, play next in queue
-        console.log('event fired: ended');
+        // remove finished track from queue
+        self.queue.splice(0,1);
+        // play next track
+        if (self.queue[0]) {
+          rcloud.play(self.queue[0]);
+          console.log("Playing next track");
+        } else {
+          console.log("Nothing in queue");
+        }
       });
       self.soundCloudPlayer.play();
     });
 
   }
-}
+};
 
 //  Rcloud Player - Init 
 // ––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -194,5 +207,5 @@ app.filter('secondsToDateTime', [function() {
     return function(seconds) {
         return new Date(1970, 0, 1).setSeconds(seconds);
     };
-}])
+}]);
 
