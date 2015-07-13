@@ -43,8 +43,8 @@
     <div class="search-results-container">
       <ul class="search-results">
         <li ng-repeat="track in search.results">
-          <a href="#" class="cue">+ cue</a>
-          <a href="" class="save" ng-click="play(track)">Play</a>
+          <a href="" class="queue" ng-click="queueTrack(track)">+ Queue</a>
+          <a href="" class="save" ng-click="playTrack(track)">Play</a>
           <span class="title">{{track.name || track.title}}</span>
           <span class="artist">{{track.artist || track.user.username}}</span>
           <span class="album">{{track.album}}</span>
