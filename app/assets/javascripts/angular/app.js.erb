@@ -138,18 +138,17 @@ var RcloudPlayer = function () {
   this.nowPlaying = this.queue[0];
   this.nowPlayingSource = function() {
     // return rdio or soundcloud
-    self.queue[0]
+    return self.queue[0].source;
   }
 
   this.play = function (track) {
-    console.log("RcloudPlayer")
-    console.log(track)
+    // add track to beggining onf queue
+    self.queue[0] = track;
     // determine Rdio or SoundCloud player
-    if (track.artist) {      // Rdio
+    if (track.source === "rdio") { 
       alert("Rdio Player")
       R.player.play({source: track.key})
-    } else if (track.user) { // SoundCloud
-
+    } else if (track.source === "soundcloud") {
       SC.stream("/tracks/" + track.id, {
         autoPlay: true
       }, function(sound){  
