@@ -84,8 +84,8 @@ app.controller("MainCtrl", function ($scope, $http) {
 
       for(var i=0; i<tracks.length; i++) {
         var track = tracks[i];
-        // add soundcloud key to identify which player to use
-        track["source"] = "soundcloud";
+        // add soundCloud key to identify which player to use
+        track["source"] = "soundCloud";
         // convert duration to seconds to match rdio
         track.duration = (track.duration / 1000);
         // add to results array
@@ -125,36 +125,38 @@ app.controller("PlayerCtrl", function ($scope) {
 
 });
 
-// SoundCloud Init
-SC.initialize({
-  client_id: 'f3a51baca351723ad612f5318b1be836',
-  redirect_uri: 'http://localhost:3000'
-});
+
 
 // Rcloud Player
 var RcloudPlayer = function () {
   var self = this
   this.queue = [];
   this.nowPlaying = this.queue[0];
-  this.nowPlayingSource = function() {
-    // return rdio or soundcloud
-    return self.queue[0].source;
-  }
+  this.nowPlayingSource = self.nowPlaying ? self.nowPlaying.source : null;
+  this.soundCloudPlayer;
+  this.soundCloudSettings = {useHTML5Audio: true, preferFlash: false}
+
+  // SoundCloud player Init
+  SC.initialize({
+    client_id: 'f3a51baca351723ad612f5318b1be836',
+    redirect_uri: 'http://localhost:3000'
+  });
 
   this.play = function (track) {
     // add track to beggining onf queue
     self.queue[0] = track;
     // determine Rdio or SoundCloud player
     if (track.source === "rdio") { 
-      alert("Rdio Player")
       R.player.play({source: track.key})
-    } else if (track.source === "soundcloud") {
-      SC.stream("/tracks/" + track.id, {
-        autoPlay: true
-      }, function(sound){  
-        SC.sound = sound;
-        SC.sound.play();
-        scPlaying = true;
+    } else if (track.source === "soundCloud") {
+      SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){  
+        self.soundCloudPlayer = sound;                    // set track
+        html5Audio = sound._player._html5Audio;           // use html audio
+        html5Audio.addEventListener('ended', function(){  
+          // track is over, play next in queue
+          console.log('event fired: ended');
+        });
+        self.soundCloudPlayer.play();
       });
 
     }
