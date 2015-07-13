@@ -2,27 +2,6 @@
 
 var app = angular.module("rcloudApp", ["ngRoute"]);
 
-
-// Routes
-app.config(function ($routeProvider, $httpProvider) {
-
-  $routeProvider
-    .when("/", {
-      controller: "MainCtrl",
-      templateUrl: "<%= asset_path('angular/main.html') %>"
-    })
-    .when("/account", {
-      controller: "AccountCtrl",
-      template: "account.html"
-    })
-    .otherwise({
-      redirectTo: "/"
-    });
-
-  $httpProvider
-    .defaults.headers.common["X-CSRF-Token"] = $("meta[name=csrf-token]").attr("content");
-});
-
 app.controller("MainCtrl", function ($scope, $http) {
   $scope.currentUser = null;
 
