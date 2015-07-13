@@ -144,15 +144,34 @@ var RcloudPlayer = function () {
   });
 }
 
+
+
 // Rcloud Player - Play
 // ––––––––––––––––––––––––––––––––––––––––––––––––––––
 RcloudPlayer.prototype.play = function (track) {
   var self = this;
   // add track to beggining of queue
   this.queue[0] = track;
+
+  // Rdio workaround to signal track is finished playing
+  // Couldn't find an Rdio method to do this
+  var rdioFinished = function() {
+    var check = setInterval(function (){
+        console.log("checking...")
+        if (R.player.position() === 0){
+          alert("DONE");
+          clearInterval(check);
+          return true;
+        }
+        return false;
+      }, 1000); 
+  }
+
+
   // determine Rdio or SoundCloud player
   if (track.source === "rdio") { 
-    R.player.play({source: track.key})
+    R.player.play({source: track.key});
+    rdioFinished();
   } else if (track.source === "soundCloud") {
     SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){  
       self.soundCloudPlayer = sound;                    // set track
