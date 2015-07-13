@@ -162,6 +162,9 @@ RcloudPlayer.prototype.play = function (track) {
   // add track to beggining of queue
   this.queue[0] = track;
 
+  // Stop current track
+  self.stop();
+
   // determine Rdio or SoundCloud player
   if (track.source === "rdio") { 
     R.player.play({source: track.key});
@@ -178,7 +181,7 @@ RcloudPlayer.prototype.play = function (track) {
         self.queue.splice(0,1);
         // play next track
         if (self.queue[0]) {
-          rcloud.play(self.queue[0]);
+          self.play(self.queue[0]);
           console.log("Playing next track");
         } else {
           console.log("Nothing in queue");
@@ -194,15 +197,27 @@ RcloudPlayer.prototype.play = function (track) {
         self.queue.splice(0,1);
         // play next track
         if (self.queue[0]) {
-          rcloud.play(self.queue[0]);
+          self.play(self.queue[0]);
           console.log("Playing next track");
         } else {
           console.log("Nothing in queue");
         }
       });
+
       self.soundCloudPlayer.play();
     });
 
+  }
+};
+
+RcloudPlayer.prototype.stop = function() {
+  var self = this;
+  // stop Rdio
+  R.player.pause();
+  // stop SoundCloud
+  if (self.soundCloudPlayer && (self.soundCloudPlayer.getState() === "playing")) {
+     console.log("stopping SoundCloud");
+     self.soundCloudPlayer.stop();
   }
 };
 
