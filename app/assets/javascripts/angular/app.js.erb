@@ -81,11 +81,14 @@ app.controller("MainCtrl", function ($scope, $http) {
     // SoundCloud Search
     // –––––––––––––––
     SC.get('/tracks', { q: query, license: 'cc-by-sa' }, function(tracks) {
-      // add soundcloud key to identify which player to use
-      // add to results array
-      for(var i=0; i<tracks.length; i++ ) {
+
+      for(var i=0; i<tracks.length; i++) {
         var track = tracks[i];
+        // add soundcloud key to identify which player to use
         track["source"] = "soundcloud";
+        // convert duration to seconds to match rdio
+        track.duration = (track.duration / 1000);
+        // add to results array
         $scope.search.results.push(track)
       }
 
