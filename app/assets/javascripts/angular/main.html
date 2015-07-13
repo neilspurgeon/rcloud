@@ -23,7 +23,7 @@
 <!-- Top Nav -->
 
 <div class="top-nav-container" ng-class="searchOverlay">
-  <nav class="top-nav" ng-controller="MainCtrl">
+  <nav class="top-nav">
     <a href="#" class="home">RCLOUD</a>
 
       <li ng-show="currentUser">{{ currentUser.email }}</li>
@@ -46,9 +46,8 @@
           <a href="#" class="cue">+ cue</a>
           <a href="" class="save" ng-click="play(track)">Play</a>
           <span class="title">{{track.name || track.title}}</span>
-          <span class="artist">{{track.artist || track.user[0].name}}</span>
-          <span class="album">{{track.name}}</span>
-          <span class="source">Source</span>
+          <span class="artist">{{track.artist || track.user.username}}</span>
+          <span class="album">{{track.album}}</span>
           <!-- Both have duration key (Rdio=seconds, SoundCloud=Milliseconds) -->
           <span class="duration">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span>
         </li>

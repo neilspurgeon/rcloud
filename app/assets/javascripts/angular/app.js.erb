@@ -29,7 +29,7 @@ app.controller("MainCtrl", function ($scope, $http) {
   $http.get("/account.json")
     .success(function (user) {
       $scope.currentUser = user;
-      console.log($scope.currentUser);
+      console.log("Get current User");
     })
 
     $scope.signIn = function() {
@@ -37,11 +37,9 @@ app.controller("MainCtrl", function ($scope, $http) {
     }
 
     $scope.signOut = function() {
-      alert("top")
       $http.delete("/users/sign_out.json")
         .success(function(res) {
           $scope.currentUser = null;
-          alert("Yay!");
         }) 
     }
 
@@ -79,8 +77,6 @@ app.controller("MainCtrl", function ($scope, $http) {
     // SoundCloud Search
     // –––––––––––––––
     SC.get('/tracks', { q: query, license: 'cc-by-sa' }, function(tracks) {
-      scTest = tracks;
-      console.log(tracks)
       var existingResults = $scope.search.results;
       $scope.search.results = existingResults.concat(tracks);
       console.log($scope.search.results)
