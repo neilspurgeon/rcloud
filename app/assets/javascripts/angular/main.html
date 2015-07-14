@@ -23,9 +23,10 @@
       <span class="">{{track.artist || track.user.username}}</span>
       <span class="">{{track.album}}</span>
       <span class="">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span>
+      <img class="current-album-art"src="{{track.icon400 || track.artwork_url}}"/>
     </li>
   </ul>
-  album art
+
 </div>
 
 <!-- Top Nav -->

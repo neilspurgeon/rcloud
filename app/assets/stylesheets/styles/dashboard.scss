@@ -30,6 +30,10 @@ $trans-white: rgba(255,255,255,0.8);
   }
 }
 
+.current-album-art {
+  width: 100%;
+}
+
 .top-nav-container {
   // padding: 1em 0; 
   @include container;
