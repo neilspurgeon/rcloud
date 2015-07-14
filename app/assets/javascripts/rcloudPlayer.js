@@ -35,15 +35,7 @@ RcloudPlayer.prototype.autoPlayNext = function() {
       // we only the care about the second change...
       if (self.positionCounter === 2) {
         self.positionCounter = 0;
-        // remove finished track from queue
-        self.queue.splice(0,1);
-        // play next track
-        if (self.queue[0]) {
-          self.play(self.queue[0]);
-          console.log("Playing next track");
-        } else {
-          console.log("Nothing in queue");
-        }
+        self.next();
       }
     });    
   });  
@@ -82,15 +74,16 @@ RcloudPlayer.prototype.play = function (track) {
       self.soundCloudPlayer = sound;                    // set track
       html5Audio = sound._player._html5Audio;           // use html audio
       html5Audio.addEventListener('ended', function(){  
-        // remove finished track from queue
-        self.queue.splice(0,1);
-        // play next track
-        if (self.queue[0]) {
-          self.play(self.queue[0]);
-          console.log("Playing next track");
-        } else {
-          console.log("Nothing in queue");
-        }
+        self.next();
+        // // remove finished track from queue
+        // self.queue.splice(0,1);
+        // // play next track
+        // if (self.queue[0]) {
+        //   self.play(self.queue[0]);
+        //   console.log("Playing next track");
+        // } else {
+        //   console.log("Nothing in queue");
+        // }
       });
 
       self.soundCloudPlayer.play();
@@ -106,7 +99,7 @@ RcloudPlayer.prototype.togglePause = function() {
 
   if (self.playing === true) {
     self.stop();
-    console.log("stoped");  
+    console.log("stopped");  
   } else {
 
     if (self.nowPlayingSource === "rdio") {
@@ -137,10 +130,21 @@ RcloudPlayer.prototype.stop = function() {
   }
 };
 
-// Rcloud Player - Stop (really just a pause...)
+// Rcloud Player - Next
 // ––––––––––––––––––––––––––––––––––––––––––––––––––––
-RcloudPlayer.prototype.stop = function() {
+RcloudPlayer.prototype.next = function() {
+  var self = this;
+  self.stop();
+  self.queue.splice(0,1);
+  var nexTrack = self.queue[0];
 
+  // check to make sure there is a next track in queue
+  if (nexTrack) {
+    self.play(nexTrack);
+    console.log("Playing next track");
+  } else {
+    console.log("Nothing in queue");
+  }
 };
 
 // Rcloud Player - Init
