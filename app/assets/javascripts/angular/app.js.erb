@@ -1,5 +1,3 @@
-//= depend_on_asset "angular/main.html"
-
 var app = angular.module("rcloudApp", ["ngRoute"]);
 
 app.controller("MainCtrl", function ($scope, $http) {
@@ -13,13 +11,22 @@ app.controller("MainCtrl", function ($scope, $http) {
     });
 
   $scope.getRdioLibrary = function() {
+
+    SC.connect(function() {
+      alert();
+      SC.get('/me', function(data) {
+        console.log(data);
+        alert('Hello, ' + data.username);
+      });
+    });
+
     console.log("getting Rdio library");
     if (R.currentUser) {
       R.request({
         method: "getTracksInCollection", 
         content: {
-        user: R.currentUser.get("key"), 
-        count: 100,
+          user: R.currentUser.get("key"), 
+          count: 100,
         }, complete: function(response) {
           $scope.$apply(function(){
             tracks = response.result;
@@ -29,9 +36,9 @@ app.controller("MainCtrl", function ($scope, $http) {
               $scope.userLibrary.push(track);
             }
           });
-      }});
+        }
+      });
     }
-
   };
 
   $scope.signIn = function() {
