@@ -92,6 +92,8 @@ app.controller("MainCtrl", function ($scope, $http) {
     });
   };
 
+  $scope.queue = rcloud.queue;
+
   $scope.queueTrack = function(track) {
     rcloud.queue.push(track);
   };
