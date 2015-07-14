@@ -16,6 +16,8 @@
     <a href="" class="play" ng-click="togglePause()"><img src="./img/play-btn.svg" /></a>
     <a href="" class="next" ng-click="next()"><img src="./img/next-btn.svg" /></a>
   </div>
+  <img class="current-album-art" ng-src="{{nowPlaying.icon400 || nowPlaying.artwork_url}}"/>
+
   <ul>
     <li ng-repeat="track in queue track by $index">
       <a href="" class="save" ng-click="playTrack(track)">Play</a>
@@ -23,7 +25,6 @@
       <span class="">{{track.artist || track.user.username}}</span>
       <span class="">{{track.album}}</span>
       <span class="">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span>
-      <img class="current-album-art"src="{{track.icon400 || track.artwork_url}}"/>
     </li>
   </ul>
 
