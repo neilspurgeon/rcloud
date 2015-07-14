@@ -3,6 +3,8 @@
 var RcloudPlayer = function () {
   var self = this;
   this.queue = [];
+  this.playing = false;
+  console.log("playing = false");
   this.nowPlaying = this.queue[0];
   this.nowPlayingSource = self.nowPlaying ? self.nowPlaying.source : null;
   this.soundCloudPlayer = null;
@@ -15,6 +17,7 @@ var RcloudPlayer = function () {
   });
 };
 
+
 // Rcloud Player - Play
 // ––––––––––––––––––––––––––––––––––––––––––––––––––––
 // Takes the full track object from Rdio or SoundCloud
@@ -22,29 +25,32 @@ var RcloudPlayer = function () {
 // Sets event to trigger next in queue when track is finished 
 RcloudPlayer.prototype.play = function (track) {
   var self = this;
-  // add track to beggining of queue
-  this.queue[0] = track;
-
-  // Stop current track
-  self.stop();
-
+  this.queue[0] = track; // add track to beggining of queue
+  self.stop();           // Stop current track
+  this.playing = true;
+  console.log(self.queue);
+  this.positionCounter = 0; // 1 = starting track, 2 = finished playing  
+  
   // determine Rdio or SoundCloud player
   if (track.source === "rdio") { 
     R.player.play({source: track.key});
 
     // capture when track finishes
     // slightly more elegant than using setInterval
-    var positionCounter = 0; // 1 = starting track, 2 = finished playing  
+    alert(self.positionCounter);
+    
     R.player.on("change:playingSource", function() {
-      positionCounter += 1;
-      console.log(positionCounter);
+      self.positionCounter += 1;
+      console.log(self.positionCounter);
       // we only the care about the second change...
-      if (positionCounter === 2) {
+      if (self.positionCounter === 2) {
+        self.positionCounter = 0;
+        alert(self.positionCounter);
         // remove finished track from queue
         self.queue.splice(0,1);
         // play next track
         if (self.queue[0]) {
-          self.play(self.queue[0]);
+          // self.play(self.queue[0]);
           console.log("Playing next track");
         } else {
           console.log("Nothing in queue");
@@ -60,7 +66,7 @@ RcloudPlayer.prototype.play = function (track) {
         self.queue.splice(0,1);
         // play next track
         if (self.queue[0]) {
-          self.play(self.queue[0]);
+          // self.play(self.queue[0]);
           console.log("Playing next track");
         } else {
           console.log("Nothing in queue");
@@ -73,13 +79,26 @@ RcloudPlayer.prototype.play = function (track) {
   }
 };
 
-RcloudPlayer.prototype.stop = function() {
-  var self = this;
-  // stop Rdio
-  R.player.pause();
-  // stop SoundCloud
-  if (self.soundCloudPlayer && (self.soundCloudPlayer.getState() === "playing")) {
-     console.log("stopping SoundCloud");
-     self.soundCloudPlayer.stop();
-  }
-};
+  RcloudPlayer.prototype.togglePause = function() {
+    var self = this;
+
+    if (self.playing === true) {
+      self.stop();
+    } else {
+      alert("play again");
+    }
+  };
+
+  RcloudPlayer.prototype.stop = function() {
+    this.playing = false;
+    console.log("playing = false");
+    var self = this;
+
+    // stop Rdio
+    R.player.pause();
+    // stop SoundCloud
+    if (self.soundCloudPlayer && (self.soundCloudPlayer.getState() === "playing")) {
+       console.log("stopping SoundCloud");
+       self.soundCloudPlayer.stop();
+    }
+  };

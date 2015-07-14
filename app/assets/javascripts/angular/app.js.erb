@@ -82,6 +82,7 @@ app.controller("MainCtrl", function ($scope, $http) {
 
   $scope.playTrack = function(track) {
     console.log(track);
+    t = track;
     $scope.rcloud.play(track);
   };
 
@@ -92,13 +93,10 @@ app.controller("MainCtrl", function ($scope, $http) {
 
   $scope.rcloud = new RcloudPlayer();
 
-});
-
-app.controller("PlayerCtrl", function ($scope) {
-  $scope.nowPlaying = {};
+  $scope.nowPlaying = null;
 
   $scope.togglePause = function() {
-    R.player.togglePause();
+    $scope.rcloud.togglePause();
   };
   $scope.previous = function() {
     R.player.previous();
