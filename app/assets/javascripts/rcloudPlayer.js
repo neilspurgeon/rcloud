@@ -22,19 +22,17 @@ RcloudPlayer.prototype.autoPlayNext = function() {
   var self = this;
   this.positionCounter = 0; // 1 = starting track, 2 = finished playing  
 
-  // capture when track finishes
-  // slightly more elegant than using setInterval
-  alert(self.positionCounter);
-  
   // wait for Rdio player to be ready
   R.ready(function() {
     R.player.on("change:playingSource", function() {
+      
+      // capture when track finishes
+      // every 2nd change = end of track
       self.positionCounter += 1;
       console.log(self.positionCounter);
       // we only the care about the second change...
       if (self.positionCounter === 2) {
         self.positionCounter = 0;
-        alert(self.positionCounter);
         // remove finished track from queue
         self.queue.splice(0,1);
         // play next track
