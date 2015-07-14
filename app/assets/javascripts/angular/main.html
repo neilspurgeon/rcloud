@@ -39,7 +39,7 @@
       <li ng-show="currentUser">{{currentUser.email}}</li>
       <li><a href="" ng-show="currentUser" ng-click="signOut()">Sign Out</a>
       <li ng-hide="currentUser"><a href="/users/sign_up/">Create Account</a></li>
-      <li ng-hide="currentUser"><a href="/users/sign_in/">Sign In</a></li>
+      <li ng-hide="currentUser"><a href="" ng-click="signIn()">Sign In</a></li>
   </nav>
 
   <!-- rdio + soundcloud search -->
@@ -93,15 +93,16 @@
     <div class="library-container">
 
     <!-- library  -->
-    <ul class="library">
-      <li>
-        <a href="#" class="cue">+ cue</a>
-        <a href="#" class="save">save</a>
-        <span class="title">Title</span>
-        <span class="artist">Artist</span>
-        <span class="album">Album</span>
-        <span class="source">Source</span>
-        <span class="duration">04:15</span>
+    <ul class="user-library">
+    <button ng-click="getRdioLibrary()">Get Rdio Library</button>
+      <li ng-repeat="track in userLibrary">
+        <a href="" class="queue" ng-click="queueTrack(track)">+ Queue</a>
+        <a href="" class="save" ng-click="playTrack(track)">Play</a>
+        <span class="title">{{track.name || track.title}}</span>
+        <span class="artist">{{track.artist || track.user.username}}</span>
+        <span class="album">{{track.album}}</span>
+        <!-- Both have duration key (Rdio=seconds, SoundCloud=Milliseconds) -->
+        <span class="duration">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span>
       </li>
     </ul>
   </div>
