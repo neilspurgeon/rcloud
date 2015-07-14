@@ -59,6 +59,8 @@ RcloudPlayer.prototype.play = function (track) {
   var self = this;
   this.queue[0] = track; // add track to beggining of queue
   self.stop();           // Stop current track
+  this.nowPlaying = this.queue[0];
+  this.nowPlayingSource = self.nowPlaying ? self.nowPlaying.source : null;
   this.playing = true;
   console.log(self.queue);
   if (this.positionCounter > 0) {
@@ -103,12 +105,22 @@ RcloudPlayer.prototype.togglePause = function() {
 
   if (self.playing === true) {
     self.stop();
+    console.log("stoped");  
   } else {
-    console.log("play again");
+
+    if (self.nowPlayingSource === "rdio") {
+      R.player.togglePause();
+      self.playing = true;
+      console.log("resuming rdio...");
+    } else if (self.nowPlayingSource === "soundCloud") {
+      self.soundCloudPlayer.play();
+      self.playing = true;
+      console.log("resuming soundcloud...");
+    }
   }
 };
 
-// Rcloud Player - Stop
+// Rcloud Player - Stop (really just a pause...)
 // ––––––––––––––––––––––––––––––––––––––––––––––––––––
 RcloudPlayer.prototype.stop = function() {
   this.playing = false;
@@ -120,7 +132,7 @@ RcloudPlayer.prototype.stop = function() {
   // stop SoundCloud
   if (self.soundCloudPlayer && (self.soundCloudPlayer.getState() === "playing")) {
      console.log("stopping SoundCloud");
-     self.soundCloudPlayer.stop();
+     self.soundCloudPlayer.pause();
   }
 };
 
