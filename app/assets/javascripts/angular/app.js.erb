@@ -80,23 +80,24 @@ app.controller("MainCtrl", function ($scope, $http) {
     $scope.search.results = null;
   };
 
+  $scope.currentPosition = 0;
+
   $scope.playTrack = function(track) {
-    console.log(track);
-    t = track;
-    $scope.rcloud.play(track);
+    rcloud.play(track);
+    $scope.nowPlaying = rcloud.queue[0];
+    R.player.on("change:position", function(position) {
+      $scope.currentPosition = position;
+      $scope.$apply();
+      console.log(position);
+    });
   };
 
   $scope.queueTrack = function(track) {
-    $scope.rcloud.queue.push(track);
-    console.log($scope.rcloud.queue);
+    rcloud.queue.push(track);
   };
 
-  $scope.rcloud = new RcloudPlayer();
-
-  $scope.nowPlaying = null;
-
   $scope.togglePause = function() {
-    $scope.rcloud.togglePause();
+    rcloud.togglePause();
   };
   $scope.previous = function() {
     R.player.previous();

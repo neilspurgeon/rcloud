@@ -18,6 +18,8 @@ var RcloudPlayer = function () {
   });
 };
 
+// Rcloud Player - Auto Play Next
+// ––––––––––––––––––––––––––––––––––––––––––––––––––––
 RcloudPlayer.prototype.autoPlayNext = function() {
   var self = this;
   this.positionCounter = 0; // 1 = starting track, 2 = finished playing  
@@ -87,26 +89,34 @@ RcloudPlayer.prototype.play = function (track) {
   }
 };
 
-  RcloudPlayer.prototype.togglePause = function() {
-    var self = this;
+// Rcloud Player - Toggle Pause
+// ––––––––––––––––––––––––––––––––––––––––––––––––––––
+RcloudPlayer.prototype.togglePause = function() {
+  var self = this;
 
-    if (self.playing === true) {
-      self.stop();
-    } else {
-      alert("play again");
-    }
-  };
+  if (self.playing === true) {
+    self.stop();
+  } else {
+    alert("play again");
+  }
+};
 
-  RcloudPlayer.prototype.stop = function() {
-    this.playing = false;
-    console.log("playing = false");
-    var self = this;
+// Rcloud Player - Stop
+// ––––––––––––––––––––––––––––––––––––––––––––––––––––
+RcloudPlayer.prototype.stop = function() {
+  this.playing = false;
+  console.log("playing = false");
+  var self = this;
 
-    // stop Rdio
-    R.player.pause();
-    // stop SoundCloud
-    if (self.soundCloudPlayer && (self.soundCloudPlayer.getState() === "playing")) {
-       console.log("stopping SoundCloud");
-       self.soundCloudPlayer.stop();
-    }
-  };
+  // stop Rdio
+  R.player.pause();
+  // stop SoundCloud
+  if (self.soundCloudPlayer && (self.soundCloudPlayer.getState() === "playing")) {
+     console.log("stopping SoundCloud");
+     self.soundCloudPlayer.stop();
+  }
+};
+
+// Rcloud Player - Init
+// ––––––––––––––––––––––––––––––––––––––––––––––––––––
+rcloud = new RcloudPlayer();
