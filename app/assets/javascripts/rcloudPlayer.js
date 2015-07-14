@@ -9,12 +9,44 @@ var RcloudPlayer = function () {
   this.nowPlayingSource = self.nowPlaying ? self.nowPlaying.source : null;
   this.soundCloudPlayer = null;
   this.soundCloudSettings = {useHTML5Audio: true, preferFlash: false};
+  this.autoPlayNext(); // init autoplay
 
   // SoundCloud player Init
   SC.initialize({
     client_id: 'f3a51baca351723ad612f5318b1be836',
     redirect_uri: 'http://localhost:3000'
   });
+};
+
+RcloudPlayer.prototype.autoPlayNext = function() {
+  var self = this;
+  this.positionCounter = 0; // 1 = starting track, 2 = finished playing  
+
+  // capture when track finishes
+  // slightly more elegant than using setInterval
+  alert(self.positionCounter);
+  
+  // wait for Rdio player to be ready
+  R.ready(function() {
+    R.player.on("change:playingSource", function() {
+      self.positionCounter += 1;
+      console.log(self.positionCounter);
+      // we only the care about the second change...
+      if (self.positionCounter === 2) {
+        self.positionCounter = 0;
+        alert(self.positionCounter);
+        // remove finished track from queue
+        self.queue.splice(0,1);
+        // play next track
+        if (self.queue[0]) {
+          self.play(self.queue[0]);
+          console.log("Playing next track");
+        } else {
+          console.log("Nothing in queue");
+        }
+      }
+    });    
+  });  
 };
 
 
@@ -29,34 +61,12 @@ RcloudPlayer.prototype.play = function (track) {
   self.stop();           // Stop current track
   this.playing = true;
   console.log(self.queue);
-  this.positionCounter = 0; // 1 = starting track, 2 = finished playing  
   
   // determine Rdio or SoundCloud player
   if (track.source === "rdio") { 
     R.player.play({source: track.key});
+    // RcloudPlayer.autoPlayNext() handles playing next Rdio track
 
-    // capture when track finishes
-    // slightly more elegant than using setInterval
-    alert(self.positionCounter);
-    
-    R.player.on("change:playingSource", function() {
-      self.positionCounter += 1;
-      console.log(self.positionCounter);
-      // we only the care about the second change...
-      if (self.positionCounter === 2) {
-        self.positionCounter = 0;
-        alert(self.positionCounter);
-        // remove finished track from queue
-        self.queue.splice(0,1);
-        // play next track
-        if (self.queue[0]) {
-          // self.play(self.queue[0]);
-          console.log("Playing next track");
-        } else {
-          console.log("Nothing in queue");
-        }
-      }
-    });
   } else if (track.source === "soundCloud") {
     SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){  
       self.soundCloudPlayer = sound;                    // set track
