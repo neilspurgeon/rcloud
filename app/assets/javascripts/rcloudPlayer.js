@@ -9,7 +9,7 @@ var RcloudPlayer = function () {
   this.nowPlayingSource = self.nowPlaying ? self.nowPlaying.source : null;
   this.soundCloudPlayer = null;
   this.soundCloudSettings = {useHTML5Audio: true, preferFlash: false};
-  this.autoPlayNext(); // init autoplay
+  // this.autoPlayNext(); // init autoplay
 
   // SoundCloud player Init
   SC.initialize({
@@ -61,14 +61,21 @@ RcloudPlayer.prototype.play = function (track) {
   self.stop();           // Stop current track
   this.playing = true;
   console.log(self.queue);
-  
+  if (this.positionCounter > 0) {
+    // 
+    this.positionCounter -= 1;
+  }
+  // init autplay
+  self.autoPlayNext(); 
+
   // determine Rdio or SoundCloud player
-  if (track.source === "rdio") { 
+  if (track.source === "rdio") {
+
     R.player.play({source: track.key});
     // RcloudPlayer.autoPlayNext() handles playing next Rdio track
 
   } else if (track.source === "soundCloud") {
-    SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){  
+    SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){ 
       self.soundCloudPlayer = sound;                    // set track
       html5Audio = sound._player._html5Audio;           // use html audio
       html5Audio.addEventListener('ended', function(){  
@@ -76,7 +83,7 @@ RcloudPlayer.prototype.play = function (track) {
         self.queue.splice(0,1);
         // play next track
         if (self.queue[0]) {
-          // self.play(self.queue[0]);
+          self.play(self.queue[0]);
           console.log("Playing next track");
         } else {
           console.log("Nothing in queue");
@@ -97,7 +104,7 @@ RcloudPlayer.prototype.togglePause = function() {
   if (self.playing === true) {
     self.stop();
   } else {
-    alert("play again");
+    console.log("play again");
   }
 };
 

@@ -83,12 +83,13 @@ app.controller("MainCtrl", function ($scope, $http) {
   $scope.currentPosition = 0;
 
   $scope.playTrack = function(track) {
+    // remove on auto play trigger
+    R.player.off("change:playingSource");
     rcloud.play(track);
     $scope.nowPlaying = rcloud.queue[0];
     R.player.on("change:position", function(position) {
       $scope.currentPosition = position;
       $scope.$apply();
-      console.log(position);
     });
   };
 
