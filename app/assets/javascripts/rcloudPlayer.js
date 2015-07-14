@@ -67,7 +67,8 @@ RcloudPlayer.prototype.play = function (track) {
     // 
     this.positionCounter -= 1;
   }
-  // init autplay
+  // restart autplay countar
+  R.player.off("change:playingSource");
   self.autoPlayNext(); 
 
   // determine Rdio or SoundCloud player
@@ -134,6 +135,12 @@ RcloudPlayer.prototype.stop = function() {
      console.log("stopping SoundCloud");
      self.soundCloudPlayer.pause();
   }
+};
+
+// Rcloud Player - Stop (really just a pause...)
+// ––––––––––––––––––––––––––––––––––––––––––––––––––––
+RcloudPlayer.prototype.stop = function() {
+
 };
 
 // Rcloud Player - Init
