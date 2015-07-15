@@ -11,57 +11,33 @@ app.controller("MainCtrl", function ($scope, $http) {
   });
 
 
-  SC.connect(function() {
-    SC.get('/me', function(data) {
-      console.log(data);
-    });
-  });
-  
-  // prompt SoundCloud connect if not connected
-  if (SC.isConnected() === false) {
-    console.log("Not SC connected")
-    // SC.connect(function() {
-    //   SC.get('/me', function(data) {
-    //     console.log(data);
-    //     console.log('Hello, ' + data.username);
-    //   });
-    // });
-  }
-
-
-
-
-  $scope.getRdioLibrary = function() {
-
-      SC.get('/me/favorites', function(response) {
-        console.log(response);
-        var tracks = response;
-
-        $scope.$apply(function(){
-          for(var i=0; i<tracks.length; i++ ) {  
-            var track = tracks[i];
-            track.source = "soundCloud";
-            $scope.userLibrary.push(track);
-          }
-        });  
+  $scope.soundCloudConnect = function() {
+    SC.connect(function() {
+      SC.get('/me', function(response) {
+        var value = SC.accessToken();
+        createCookie("accessToken", value, 30);
       });
+    });
+  };
 
 
-    // Get SoundCloud favorites
-      // SC.get('/me/favorites', function(data){
-      //   $scope.$apply(function(response){
-      //     console.log("RESPONSE");
-      //     console.log(response);
-      //     var tracks = response;
-      //     for(var i=0; i<tracks.length; i++ ) {  
-      //       var track = tracks[i];
-      //       track.source = "soundCloud";
-      //       $scope.userLibrary.push(track);
-      //     }
-      //   });
-      //  });
+  var getSoundCloudLibrary = function() {
+    var token = getCookie('accessToken');
+    SC.get('/me/favorites?oauth_token=' + token, function(response) {
+      console.log(response);
+      var tracks = response;
 
-    console.log("getting Rdio library");
+      $scope.$apply(function(){
+        for(var i=0; i<tracks.length; i++ ) {  
+          var track = tracks[i];
+          track.source = "soundCloud";
+          $scope.userLibrary.push(track);
+        }
+      });  
+    });
+  };
+
+  var getRdioLibrary = function() {
     if (R.currentUser) {
       R.request({
         method: "getTracksInCollection", 
@@ -79,10 +55,13 @@ app.controller("MainCtrl", function ($scope, $http) {
           });
         }
       });
-  }
-
-
+    }
   };
+
+  $scope.getLibrary = function() {
+    getRdioLibrary();
+    getSoundCloudLibrary();
+  };  
 
   $scope.signIn = function() {
     alert();
