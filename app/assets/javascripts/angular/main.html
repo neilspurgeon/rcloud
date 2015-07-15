@@ -95,7 +95,7 @@
     <!-- library  -->
     <ul class="user-library">
     <button ng-click="getLibrary()">Get Rdio Library</button>
-      <li ng-repeat="track in userLibrary">
+      <li ng-repeat="track in userLibrary | orderBy:'-artist'">
         <a href="" class="queue" ng-click="queueTrack(track)">+ Queue</a>
         <a href="" class="save" ng-click="playTrack(track)">Play</a>
         <span class="title">{{track.name || track.title}}</span>

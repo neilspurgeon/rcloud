@@ -10,7 +10,6 @@ app.controller("MainCtrl", function ($scope, $http) {
       console.log("Get current User");
   });
 
-
   $scope.soundCloudConnect = function() {
     SC.connect(function() {
       SC.get('/me', function(response) {
@@ -20,18 +19,19 @@ app.controller("MainCtrl", function ($scope, $http) {
     });
   };
 
-
   var getSoundCloudLibrary = function() {
     var token = getCookie('accessToken');
     SC.get('/me/favorites?oauth_token=' + token, function(response) {
-      console.log(response);
+      
       var tracks = response;
-
       $scope.$apply(function(){
         for(var i=0; i<tracks.length; i++ ) {  
+          // grab the data we want and push clean track to lib 
           var track = tracks[i];
-          track.source = "soundCloud";
-          $scope.userLibrary.push(track);
+          var rcloudTrack = setSoundCloudTrack(track);
+          $scope.userLibrary.push(rcloudTrack);
+          // for dev purpose: REMOVE
+          lib = $scope.userLibrary;
         }
       });  
     });
@@ -45,12 +45,15 @@ app.controller("MainCtrl", function ($scope, $http) {
           user: R.currentUser.get("key"), 
           count: 100,
         }, complete: function(response) {
+          
+          var tracks = response.result;
           $scope.$apply(function(){
-            var tracks = response.result;
             for(var i=0; i<tracks.length; i++ ) {  
               var track = tracks[i];
-              track.source = "rdio";
-              $scope.userLibrary.push(track);
+              var rcloudTrack = setRdioTrack(track);
+              $scope.userLibrary.push(rcloudTrack);
+              // for dev purpose: REMOVE
+              lib = $scope.userLibrary;
             }
           });
         }
@@ -98,8 +101,8 @@ app.controller("MainCtrl", function ($scope, $http) {
         $scope.$apply(function () {
           for(var i=0; i<tracks.length; i++ ) {
             var track = tracks[i];
-            track.source = "rdio";
-            $scope.search.results.push(track);
+            var rcloudTrack = setRdioTrack(track);
+            $scope.search.results.push(rcloudTrack);
           }
         });
         
@@ -107,9 +110,7 @@ app.controller("MainCtrl", function ($scope, $http) {
         $scope.query = null;
         angular.element("form")[0].reset();
         angular.element("form")[0].blur();
-        // update scope
-        
-
+        // update scope        
         
       },
       error: function(response) {
@@ -124,12 +125,8 @@ app.controller("MainCtrl", function ($scope, $http) {
       $scope.$apply(function(){
         for(var i=0; i<tracks.length; i++) {
           var track = tracks[i];
-          // add soundCloud key to identify which player to use
-          track.source = "soundCloud";
-          // convert duration to seconds to match rdio
-          track.duration = (track.duration / 1000);
-          // add to results array
-          $scope.search.results.push(track);
+          var soundCloudTrack = setRdioTrack(soundCloudTrack);
+          $scope.search.results.push(soundcloudTrack);
         }
       });
 

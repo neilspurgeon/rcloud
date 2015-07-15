@@ -147,6 +147,49 @@ RcloudPlayer.prototype.next = function() {
   }
 };
 
+// Rcloud PLayer - Set Track from SoundCloud
+// ––––––––––––––––––––––––––––––––––––––––––––––––––––
+var setRdioTrack = function(rdioTrack) { 
+  // creat new track to standardize data
+  var track = {};
+  track.source = "rdio";
+  track.id = rdioTrack.key;
+  track.name = rdioTrack.title;
+  track.artist = rdioTrack.artist;
+  track.album = rdioTrack.album;
+  track.art = rdioTrack.icon400;
+  track.duration = rdioTrack.duration;
+  track.url = rdioTrack.shortUrl; 
+  return track;
+};
+
+// Rcloud PLayer - Set Track from SoundCloud
+// ––––––––––––––––––––––––––––––––––––––––––––––––––––
+var setSoundCloudTrack = function(soundCloudTrack) { 
+  // replace with largest img
+  var replaceImgSize = function(str){
+    var newStr = str.replace(/(large)/, "t500x500");
+    return newStr;
+  };
+
+  // creat new track to standardize data
+  var track = {};
+
+  track.source = "soundCloud";
+  track.id = soundCloudTrack.id;
+  track.name = soundCloudTrack.title;
+  track.artist = soundCloudTrack.user.username;
+  track.album = null;
+  track.art = soundCloudTrack.artwork_url;
+  track.duration = (soundCloudTrack.duration / 1000);
+  track.url = soundCloudTrack.permalink_url;
+  if (track.art) {
+    track.art = replaceImgSize(track.art);
+  }
+  return track;
+};
+
+
 // Rcloud Player - Init
 // ––––––––––––––––––––––––––––––––––––––––––––––––––––
 rcloud = new RcloudPlayer();
