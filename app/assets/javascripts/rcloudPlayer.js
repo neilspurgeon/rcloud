@@ -70,10 +70,12 @@ RcloudPlayer.prototype.play = function (track) {
     // RcloudPlayer.autoPlayNext() handles playing next Rdio track
 
   } else if (track.source === "soundCloud") {
-    SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){ 
+    SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){
+      gSound = sound; 
       self.soundCloudPlayer = sound;                    // set track
       html5Audio = sound._player._html5Audio;           // use html audio
-      html5Audio.addEventListener('ended', function(){  
+      html5Audio.addEventListener('ended', function(){
+        alert("html5Audio.addEventListener");  
         self.next();
         // // remove finished track from queue
         // self.queue.splice(0,1);
@@ -150,6 +152,7 @@ RcloudPlayer.prototype.next = function() {
 // Rcloud PLayer - Set Track from SoundCloud
 // ––––––––––––––––––––––––––––––––––––––––––––––––––––
 var setRdioTrack = function(rdioTrack) { 
+  
   // creat new track to standardize data
   var track = {};
   track.source = "rdio";
