@@ -66,7 +66,7 @@ RcloudPlayer.prototype.play = function (track) {
   // determine Rdio or SoundCloud player
   if (track.source === "rdio") {
 
-    R.player.play({source: track.key});
+    R.player.play({source: track.id});
     // RcloudPlayer.autoPlayNext() handles playing next Rdio track
 
   } else if (track.source === "soundCloud") {
