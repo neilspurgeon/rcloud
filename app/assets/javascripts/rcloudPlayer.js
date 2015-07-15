@@ -8,8 +8,10 @@ var RcloudPlayer = function () {
   this.nowPlaying = this.queue[0];
   this.nowPlayingSource = self.nowPlaying ? self.nowPlaying.source : null;
   this.soundCloudPlayer = null;
-  this.soundCloudSettings = {useHTML5Audio: true, preferFlash: false};
-  // this.autoPlayNext(); // init autoplay
+  this.soundCloudSettings = { useHTML5Audio: true, 
+                              preferFlash: false,
+                              whileplaying: console.log("asdasd")
+                            };
 
   // SoundCloud player Init
   SC.initialize({
@@ -73,9 +75,12 @@ RcloudPlayer.prototype.play = function (track) {
     SC.stream("/tracks/" + track.id, self.soundCloudSettings, function(sound){
       gSound = sound; 
       self.soundCloudPlayer = sound;                    // set track
-      html5Audio = sound._player._html5Audio;           // use html audio
-      html5Audio.addEventListener('ended', function(){
-        alert("html5Audio.addEventListener");  
+      self.html5Audio = sound._player._html5Audio;           // use html audio
+      // self.html5Audio.ontimeupdate = function() {
+      //   console.log(html5Audio.currentTime);
+      // };
+
+      self.html5Audio.addEventListener("ended", function(){ 
         self.next();
         // // remove finished track from queue
         // self.queue.splice(0,1);
@@ -87,7 +92,6 @@ RcloudPlayer.prototype.play = function (track) {
         //   console.log("Nothing in queue");
         // }
       });
-
       self.soundCloudPlayer.play();
     });
 
@@ -152,7 +156,7 @@ RcloudPlayer.prototype.next = function() {
 // Rcloud PLayer - Set Track from SoundCloud
 // ––––––––––––––––––––––––––––––––––––––––––––––––––––
 var setRdioTrack = function(rdioTrack) { 
-  
+
   // creat new track to standardize data
   var track = {};
   track.source = "rdio";

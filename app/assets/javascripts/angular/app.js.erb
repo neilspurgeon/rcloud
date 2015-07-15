@@ -1,6 +1,6 @@
 var app = angular.module("rcloudApp", ["ngRoute"]);
 
-app.controller("MainCtrl", function ($scope, $http) {
+app.controller("MainCtrl", function ($scope, $http, $interval) {
   $scope.currentUser = null;
   $scope.userLibrary = [];
 
@@ -138,15 +138,23 @@ app.controller("MainCtrl", function ($scope, $http) {
   };
 
   $scope.currentPosition = 0;
-
   $scope.playTrack = function(track) {    
     rcloud.play(track);
     $scope.nowPlaying = rcloud.queue[0];
 
-    R.player.on("change:position", function(position) {
-      $scope.currentPosition = position;
-      $scope.$apply();
-    });
+    $scope.currentPosition = 0;
+    // stop currently running interval
+    $interval.cancel($scope.getTime);
+    $scope.getTime = $interval(callAtInterval, 1000);
+  };
+
+  var callAtInterval = function() {
+      console.log("Interval occurred");
+      if (rcloud.nowPlayingSource === "rdio") {
+        $scope.currentPosition = R.player.position();
+      } else if (rcloud.nowPlayingSource === "soundCloud") {
+        $scope.currentPosition = rcloud.html5Audio.currentTime;
+      }
   };
 
   $scope.queue = rcloud.queue;
@@ -157,7 +165,17 @@ app.controller("MainCtrl", function ($scope, $http) {
 
   $scope.togglePause = function() {
     rcloud.togglePause();
+    
+    if (rcloud.playing) {
+      // stop currently running interval if playing
+      $scope.getTime = $interval(callAtInterval, 1000);
+    } else if (rcloud.playing === false){
+      // start interval if not playing
+      $interval.cancel($scope.getTime);
+      
+    }
   };
+
   $scope.previous = function() {
     // R.player.previous();
   };
@@ -166,6 +184,8 @@ app.controller("MainCtrl", function ($scope, $http) {
   };
 
 });
+
+
 
 // time filter
 app.filter('secondsToDateTime', [function() {
