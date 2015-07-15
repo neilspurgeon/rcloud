@@ -8,17 +8,58 @@ app.controller("MainCtrl", function ($scope, $http) {
     .success(function (user) {
       $scope.currentUser = user;
       console.log("Get current User");
+  });
+
+
+  SC.connect(function() {
+    SC.get('/me', function(data) {
+      console.log(data);
     });
+  });
+  
+  // prompt SoundCloud connect if not connected
+  if (SC.isConnected() === false) {
+    console.log("Not SC connected")
+    // SC.connect(function() {
+    //   SC.get('/me', function(data) {
+    //     console.log(data);
+    //     console.log('Hello, ' + data.username);
+    //   });
+    // });
+  }
+
+
+
 
   $scope.getRdioLibrary = function() {
 
-    SC.connect(function() {
-      alert();
-      SC.get('/me', function(data) {
-        console.log(data);
-        alert('Hello, ' + data.username);
+      SC.get('/me/favorites', function(response) {
+        console.log(response);
+        var tracks = response;
+
+        $scope.$apply(function(){
+          for(var i=0; i<tracks.length; i++ ) {  
+            var track = tracks[i];
+            track.source = "soundCloud";
+            $scope.userLibrary.push(track);
+          }
+        });  
       });
-    });
+
+
+    // Get SoundCloud favorites
+      // SC.get('/me/favorites', function(data){
+      //   $scope.$apply(function(response){
+      //     console.log("RESPONSE");
+      //     console.log(response);
+      //     var tracks = response;
+      //     for(var i=0; i<tracks.length; i++ ) {  
+      //       var track = tracks[i];
+      //       track.source = "soundCloud";
+      //       $scope.userLibrary.push(track);
+      //     }
+      //   });
+      //  });
 
     console.log("getting Rdio library");
     if (R.currentUser) {
@@ -29,7 +70,7 @@ app.controller("MainCtrl", function ($scope, $http) {
           count: 100,
         }, complete: function(response) {
           $scope.$apply(function(){
-            tracks = response.result;
+            var tracks = response.result;
             for(var i=0; i<tracks.length; i++ ) {  
               var track = tracks[i];
               track.source = "rdio";
@@ -38,7 +79,9 @@ app.controller("MainCtrl", function ($scope, $http) {
           });
         }
       });
-    }
+  }
+
+
   };
 
   $scope.signIn = function() {
