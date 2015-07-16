@@ -32,21 +32,31 @@
 
 <!-- Top Nav -->
 
-<div class="top-nav-container" ng-class="searchOverlay">
+<div class="top-bar-container" ng-class="searchOverlay">
   <nav class="top-nav">
-    <a href="#" class="home">RCLOUD</a>
-
+    <ul>
+      <span class="logo"><a href="#">RCLOUD</a></span>
       <li ng-show="currentUser">{{currentUser.email}}</li>
-      <li><a href="" ng-show="currentUser" ng-click="signOut()">Sign Out</a>
-      <li ng-hide="currentUser"><a href="/users/sign_up/">Create Account</a></li>
-      <li ng-hide="currentUser"><a href="" ng-click="signIn()">Sign In</a></li>
+      <li ng-show="currentUser"><a href="" ng-click="signOut()">Sign Out</a></li>
+      <li ng-hide="currentUser" class="create-account"><a href="/users/sign_up/">Create Account</a></li>
+      <li ng-hide="currentUser" class="sign-in"><a href="" ng-click="signIn()">Sign In</a></li>
+      <li class="menu">
+        <a id="menu-bttn" href="" ng-click="menuBttnToggle()">
+          <svg id="menu-svg" viewbox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" >
+            <line id="line-one" x1="5" y1="5" x2="95" y2="5" stroke-width="10"/>
+            <line id="line-two" x1="5" y1="50" x2="95" y2="50" stroke-width="10"/>
+            <line id="line-three" x1="5" y1="95" x2="95" y2="95" stroke-width="10" />
+          </svg>
+        </a>
+      </li>
+    </ul>
   </nav>
 
   <!-- rdio + soundcloud search -->
 
     
     <form ng-submit="search(search.query); searchOverlay='searchOpen'">
-      <input ng-model="search.query" class="search" type="text" placeholder="Search artist, track, or album" />
+      <input ng-model="search.query" class="api-search-bar" type="text" placeholder="Search artist, track, or album" />
       <!-- <input type="submit" /> -->
     </form>
     <button ng-class="searchCloseBttn" ng-click="searchOverlay=''; closeSearch()" ng-show="search.results" class="searchCloseBttn">X</button>

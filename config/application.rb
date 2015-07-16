@@ -1,5 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 
+require 'breakpoint'
 require 'susy'
 require "rails"
 # Pick the frameworks you want:

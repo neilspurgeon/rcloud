@@ -180,9 +180,47 @@ app.controller("MainCtrl", function ($scope, $http, $interval) {
   $scope.previous = function() {
     // R.player.previous();
   };
+  
   $scope.next = function() {
     rcloud.next();
   };
+
+  $scope.menuOpen = false;
+  
+  $scope.menuBttnToggle = function() {
+
+      var menu = Snap("#menu-svg"),
+        lineOne   = menu.select("#line-one"),
+        lineTwo   = menu.select("#line-two"),
+        lineThree = menu.select("#line-three");
+
+    $scope.menuOpen = !$scope.menuOpen;
+    if ($scope.menuOpen) {
+
+      // move lines to center
+      lineOne.animate({"y1":"50", "y2":"50"}, 100);
+      lineThree.animate({"y1":"50", "y2":"50"}, 100, function() {
+
+        // wait for lines to move to center
+        $("#line-two").hide(); // hide center line
+        // rotate lines
+        lineOne.animate({transform: "r45, 50, 50"}, 100, mina.ease);
+        lineThree.animate({transform: "r-45, 50, 50"}, 100, mina.ease) ;     
+      }); 
+    } else {
+      
+      // move lines back to og position
+      lineOne.animate({transform: "0, 50, 50"}, 100);
+      lineThree.animate({transform: "0, 50, 50"}, 100, function() {
+
+        // wait for lines to move to og position
+        $("#line-two").show(); // show center line
+        // rotate lines
+        lineOne.animate({"y1": "5", "y2": "5" }, 100, mina.ease);
+        lineThree.animate({"y1":"95", "y2":"95"}, 100, mina.ease);  
+      });   
+    }
+  }
 
 });
 

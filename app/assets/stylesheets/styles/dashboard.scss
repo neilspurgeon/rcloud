@@ -1,11 +1,9 @@
-
-$white: #FFF;
-$trans-white: rgba(255,255,255,0.8);
-
+// ---------------------------------------------------------------
+// Sidebar
+// ---------------------------------------------------------------
 
 .sidebar-container {
-  width: $sidebar-width;
-  // @include span (2);
+  width: 100%;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -13,6 +11,7 @@ $trans-white: rgba(255,255,255,0.8);
   z-index: 990;
   color: #FFF;
   background-color: #000;
+  display: none;
 }
 
 .controls {
@@ -20,38 +19,28 @@ $trans-white: rgba(255,255,255,0.8);
   display: inline-block;
   text-align: center;
    .prev, .play {
-    @include span (4);
   }
   .next {
-    @include span (4 at 9);
   }
   img {
-    width: 75%;
+
   }
 }
 
 .current-album-art {
-  width: 100%;
+
 }
 
-.top-nav-container {
-  // padding: 1em 0; 
+// ---------------------------------------------------------------
+// Top Nav
+// ---------------------------------------------------------------
+
+.top-bar-container {
   @include container;
+  width: 100%;
   position: fixed;
-  height: $top-height;
   top: 0;
-  left: $sidebar-width;
-  width: calc(100% - 15em); // lines up grid
   background: linear-gradient(to right, rgba(255,0,21,1) 0%, rgba(255,0,102,1) 100%);
-  .search {
-    @include span(12);
-    background-color: transparent;
-    border: none;
-    color: $white;
-    margin-top: 1em;
-    font-weight: 100;
-    font-size: 2em;
-  }
   :focus {
     outline: none;
   }
@@ -68,23 +57,86 @@ $trans-white: rgba(255,255,255,0.8);
   :-ms-input-placeholder {  
    color: $trans-white;
   }
+  // @include susy-breakpoint($small, 12) {
+  //   left: $sidebar-width;
+  //   width: calc(100% - 15em); // lines up grid
+  //   .search{
+  //     @include span(12);
+  //   } 
+  // }
 }
 
+.top-nav {
+  margin: 0;
+  @include container;
+  padding: .5em 0;
+  background-color:rgba(255,255,255,.2);
+  a {
+    text-decoration: none;
+    color: $white;
+    font-size: .8em;
+  }
+  ul {
+  }
+}
 
-.top-nav-container.searchOpen {
+.logo {
+  @include span(2);
+  font-size: 1em;
+  font-weight: 400;
+
+}
+
+.create-account {
+  @include span(2);
+}
+
+.sign-in {
+  @include span(1);
+}
+
+.menu {
+  @include span(1 at 5);
+  text-align: right;
+}
+
+#menu-svg {
+  height: 2em;
+  stroke: $white;
+  stroke-linecap: round;
+}
+
+#menu-bttn {
+  // display: inline-block;
+}
+
+// ---------------------------------------------------------------
+// API Search Bar
+// ---------------------------------------------------------------
+
+.api-search-bar {
+  @include span(6);
+  background-color: transparent;
+  border: none;
+  color: $white;
+  margin: 1em 0;
+  font-weight: 100;
+  font-size: 1.5em;
+}
+
+.top-bar-container.searchOpen {
   height: 100vh;
   transition: all .01s ease;
 }
 
 .search-results-container {
   overflow: auto;
-  height: 100vh;
 }
 
 .search-results {
   padding: 1em 0;
   li {
-    @include span(12);
+
     color: $white;
     clear: both;
   }
@@ -92,71 +144,25 @@ $trans-white: rgba(255,255,255,0.8);
     color: $white;
   }
   .queue, .save {
-    @include span(1);
+
   }
   .source {
-    @include span(2)
+
   }
   .title {
-    @include span(3);
+
   }
   .artist, .album {
-    @include span(2);
+
   }
   .duration {
-    @include span(1 at 12);
+
   }  
 }
 
-.top-nav {
-  @include span(12);
-  padding-top: 1em;
-  padding-bottom: 1em;
-  background-color:rgba(255,255,255,.2);
-  a {
-    @include span(2);
-    text-decoration: none;
-    color: $white;
-  }
-}
-
-.library-container {
-}
-
-.library-filters {
-  @include span(12);
-  background-color: $trans-white;
-}
-
-.library-filter-labels {
-  @include span(12);
-}
-
-.genre-filter, .artist-filter {
-  @include span(4);
-}
-
-.album-filter {
-  @include span(4 at 9);
-}
-
-.library {
-  @include span(12);
-  .cue, .save, .source {
-    @include span(1);
-  }
-  .title {
-    @include span(3);
-  }
-  .artist, .album {
-    @include span(2);
-  }
-  .duration {
-    @include span(1 at 12);
-  } 
-}
 
 ul {
+  margin: 0;
   padding: 0;
 }
 

@@ -17,5 +17,8 @@
     "normalize.css": "~3.0.3",
     "angular-route": "~1.4.2",
     "angular-resource": "~1.4.2"
+  },
+  "devDependencies": {
+    "breakpoint-sass": "~2.6.1"
   }
 }
