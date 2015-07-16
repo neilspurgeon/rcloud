@@ -138,7 +138,8 @@ app.controller("MainCtrl", function ($scope, $http, $interval) {
   };
 
   $scope.currentPosition = 0;
-  $scope.playTrack = function(track) {    
+  $scope.playTrack = function(track) {  
+    rcloud.stop();  
     rcloud.play(track);
     $scope.nowPlaying = rcloud.queue[0];
 
@@ -152,8 +153,8 @@ app.controller("MainCtrl", function ($scope, $http, $interval) {
       console.log("Interval occurred");
       if (rcloud.nowPlayingSource === "rdio") {
         $scope.currentPosition = R.player.position();
-      } else if (rcloud.nowPlayingSource === "soundCloud") {
-        $scope.currentPosition = rcloud.html5Audio.currentTime;
+      } else if (rcloud.soundCloud && rcloud.nowPlayingSource === "soundCloud") {
+        $scope.currentPosition = rcloud.soundCloud._player._html5Audio.currentTime;
       }
   };
 
