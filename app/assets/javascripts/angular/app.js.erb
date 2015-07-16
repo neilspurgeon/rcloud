@@ -190,10 +190,10 @@ app.controller("MainCtrl", function ($scope, $http, $interval) {
   
   $scope.menuBttnToggle = function() {
 
-      var menu = Snap("#menu-svg"),
-        lineOne   = menu.select("#line-one"),
-        lineTwo   = menu.select("#line-two"),
-        lineThree = menu.select("#line-three");
+    var menu = Snap("#menu-svg"),
+      lineOne   = menu.select("#line-one"),
+      lineTwo   = menu.select("#line-two"),
+      lineThree = menu.select("#line-three");
 
     $scope.menuOpen = !$scope.menuOpen;
     if ($scope.menuOpen) { 

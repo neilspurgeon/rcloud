@@ -1,4 +1,38 @@
 // ---------------------------------------------------------------
+// Off Canvas
+// ---------------------------------------------------------------
+.off-canvas-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 5000px
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+}
+
+.off-canvas-area {
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -300px;
+  background: $black;
+}
+
+.off-canvas-container.open .main-container {
+  -webkit-transform: translateX(-300px);
+  transform: translateX(-300px);
+}
+
+// ---------------------------------------------------------------
 // Music Player Panel
 // ---------------------------------------------------------------
 
@@ -153,12 +187,11 @@
   width: 100%;
 }
 
-.search-results {
+.search-results, .user-library {
   @include container;
   li {
     @include container;
     padding-bottom: 1em;
-    color: $white;
     clear: both;
   }
   .border {
@@ -167,9 +200,11 @@
     border-top: 1px solid rgba(150,150,150, 1);
   }
   a {
-    color: $white;
+    font-size: 1.1em;
+    font-weight: 300;
+    text-decoration: none;
   }
-  .queue {
+  .buttons {
     @include span(1 at 5);
     text-align: right; 
     img {
@@ -177,26 +212,37 @@
     }
   }
   .title {
-    @include span(5);
+    // @include span(6);
     font-size: 1em;
     font-weight: 400;
     margin-top: 0;
+  }
+  .track {
+    @include span(5);
   }
   .artist, .album {
     font-size: .8em;
     margin: 0;
   }
-  .artist {
-    @include span(3);
-  }
   .album {
-    @include span(3 at 4);
-  }
-  .duration {
-    @include span(6);
-  }  
+    font-weight: 200;
+    // @include span(3 at 4);
+  } 
 }
 
+.search-results {
+  color: $white;
+  a {
+    color: $white;
+  }
+}
+
+.user-library {
+  color: $black;
+  a {
+    color: $black;
+  }
+}
 
 
 ul {
