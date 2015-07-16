@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------
-// Sidebar
+// Music Player Panel
 // ---------------------------------------------------------------
 
-.sidebar-container {
+.player-container {
   width: 100%;
   height: 100vh;
   position: fixed;
@@ -27,7 +27,7 @@
   }
 }
 
-.sidebar-container.open {
+.player-container.open {
   display: inline-block;
 }
 
