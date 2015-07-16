@@ -19,6 +19,12 @@ app.controller("MainCtrl", function ($scope, $http, $interval) {
     });
   };
 
+  $scope.rdioConnect = function() {
+    // R.ready(function() {
+      R.authenticate();
+    // });
+  };
+
   var getSoundCloudLibrary = function() {
     var token = getCookie('accessToken');
     SC.get('/me/favorites?oauth_token=' + token, function(response) {
@@ -67,12 +73,6 @@ app.controller("MainCtrl", function ($scope, $http, $interval) {
   };  
 
   $scope.signIn = function() {
-    alert();
-    R.ready(function() {
-      console.log("R Ready");
-      R.authenticate();
-    });
-    
   };
 
   $scope.signOut = function() {
