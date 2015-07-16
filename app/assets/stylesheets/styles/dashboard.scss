@@ -130,7 +130,7 @@
     @include span(1 at 5);
     text-align: right;
     svg {
-      height: 1.6em;
+      width: 1.3em;
       stroke: white;
       stroke-linecap: round;
     }
@@ -140,6 +140,7 @@
 .search-results-container.searchOpen {
   height: 100vh;
   transition: all .01s ease;
+  padding-bottom: 15em;
 }
 
 .search-results-container {
@@ -149,9 +150,6 @@
 
 .search-results {
   @include container;
-  img {
-    max-height: 2em;
-  }
   li {
     @include container;
     padding-bottom: 1em;
@@ -168,7 +166,10 @@
   }
   .queue {
     @include span(1 at 5);
-    text-align: right;
+    text-align: right; 
+    img {
+      width: 2em;
+    }
   }
   .title {
     @include span(5);

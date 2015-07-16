@@ -162,9 +162,10 @@ var setRdioTrack = function(rdioTrack) {
 
   // creat new track to standardize data
   var track = {};
+  rt = rdioTrack;
   track.source = "rdio";
   track.id = rdioTrack.key;
-  track.name = rdioTrack.title;
+  track.name = rdioTrack.name;
   track.artist = rdioTrack.artist;
   track.album = rdioTrack.album;
   track.art = rdioTrack.icon400;
