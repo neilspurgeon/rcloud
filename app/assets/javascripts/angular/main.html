@@ -1,5 +1,5 @@
 <!-- Sidbar -->
-<div class="sidebar-container">
+<div class="sidebar-container" ng-class="menuOpen ? 'open' : 'null'">
   
   <div class="track-info">
     <h4 class="track">{{nowPlaying.name || nowPlaying.title}} </h4>
@@ -74,7 +74,7 @@
             <h2 class="title">{{track.name}}</h2>
             <a href="" class="queue" ng-click="queueTrack(track)"><img src="/img/plus-icon-white.svg" alt="Add to Que"></img></a>
             <h3 class="artist">{{track.artist}}</h3>
-            <h4 class="album">{{track.album || "Not Available"}}</h4>
+            <h4 class="album">{{track.album}}</h4>
         </li>
       </ul>
     </div>
