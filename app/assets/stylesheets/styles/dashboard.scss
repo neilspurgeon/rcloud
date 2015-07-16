@@ -116,49 +116,81 @@
 
 .api-search-bar {
   @include span(6);
-  background-color: transparent;
-  border: none;
   color: $white;
   margin: 1em 0;
+  padding: 0;
   font-weight: 100;
   font-size: 1.5em;
+  input {
+    @include span(5);
+    background-color: transparent;
+    border: none;
+  }
+  .searchCloseBttn {
+    @include span(1 at 5);
+    text-align: right;
+    svg {
+      height: 1.6em;
+      stroke: white;
+      stroke-linecap: round;
+    }
+  }
 }
 
-.top-bar-container.searchOpen {
+.search-results-container.searchOpen {
   height: 100vh;
   transition: all .01s ease;
 }
 
 .search-results-container {
   overflow: auto;
+  width: 100%;
 }
 
 .search-results {
-  padding: 1em 0;
+  @include container;
+  img {
+    max-height: 2em;
+  }
   li {
-
+    @include container;
+    padding-bottom: 1em;
     color: $white;
     clear: both;
+  }
+  .border {
+    @include span(6 split);
+    padding-bottom: 1em;
+    border-top: 1px solid rgba(150,150,150, 1);
   }
   a {
     color: $white;
   }
-  .queue, .save {
-
-  }
-  .source {
-
+  .queue {
+    @include span(1 at 5);
+    text-align: right;
   }
   .title {
-
+    @include span(5);
+    font-size: 1em;
+    font-weight: 400;
+    margin-top: 0;
   }
   .artist, .album {
-
+    font-size: .8em;
+    margin: 0;
+  }
+  .artist {
+    @include span(3);
+  }
+  .album {
+    @include span(3 at 4);
   }
   .duration {
-
+    @include span(6);
   }  
 }
+
 
 
 ul {

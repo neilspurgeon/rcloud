@@ -32,7 +32,7 @@
 
 <!-- Top Nav -->
 
-<div class="top-bar-container" ng-class="searchOverlay">
+<div class="top-bar-container">
   <nav class="top-nav">
     <ul>
       <span class="logo"><a href="#">RCLOUD</a></span>
@@ -55,20 +55,26 @@
   <!-- rdio + soundcloud search -->
 
     
-    <form ng-submit="search(search.query); searchOverlay='searchOpen'">
-      <input ng-model="search.query" class="api-search-bar" type="text" placeholder="Search artist, track, or album" />
+    <form ng-submit="search(search.query); searchOverlay='searchOpen'" class="api-search-bar">
+      <input ng-model="search.query" type="text" placeholder="Search artist, track, or album" />
       <!-- <input type="submit" /> -->
+      <a href="" ng-class="searchCloseBttn" ng-click="searchOverlay=''; closeSearch()" ng-show="search.results" class="searchCloseBttn">
+        <svg viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <line x1="5" y1="50" x2="95" y2="50" stroke-width="10" transform="matrix(0.7071,0.7071,-0.7071,0.7071,50,-20.7107)"></line>
+          <line x1="5" y1="50" x2="95" y2="50" stroke-width="10" style="display: none;"></line>
+          <line x1="5" y1="50" x2="95" y2="50" stroke-width="10" transform="matrix(0.7071,-0.7071,0.7071,0.7071,-20.7107,50)"></line>
+        </svg>
+      </a>
     </form>
-    <button ng-class="searchCloseBttn" ng-click="searchOverlay=''; closeSearch()" ng-show="search.results" class="searchCloseBttn">X</button>
-    <div class="search-results-container">
+
+    <div class="search-results-container" ng-class="searchOverlay">
       <ul class="search-results">
         <li ng-repeat="track in search.results">
-          <a href="" class="queue" ng-click="queueTrack(track)">+ Queue</a>
-          <a href="" class="save" ng-click="playTrack(track)">Play</a>
-          <span class="title">{{track.name}}</span>
-          <span class="artist">{{track.artist}}</span>
-          <span class="album">{{track.album || "Not Available"}}</span>
-          <span class="duration">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span>
+            <div class="border"></div>
+            <h2 class="title">{{track.name}}</h2>
+            <a href="" class="queue" ng-click="queueTrack(track)"><img src="/img/plus-icon-white.svg" alt="Add to Que"></img></a>
+            <h3 class="artist">{{track.artist}}</h3>
+            <h4 class="album">{{track.album || "Not Available"}}</h4>
         </li>
       </ul>
     </div>

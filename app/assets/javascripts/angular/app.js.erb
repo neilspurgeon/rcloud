@@ -103,6 +103,7 @@ app.controller("MainCtrl", function ($scope, $http, $interval) {
             var track = tracks[i];
             var rcloudTrack = setRdioTrack(track);
             $scope.search.results.push(rcloudTrack);
+            console.log($scope.search.results);
           }
         });
         
@@ -208,7 +209,7 @@ app.controller("MainCtrl", function ($scope, $http, $interval) {
         lineThree.animate({transform: "r-45, 50, 50"}, 100, mina.ease) ;     
       }); 
     } else {
-      
+
       // move lines back to og position
       lineOne.animate({transform: "0, 50, 50"}, 100);
       lineThree.animate({transform: "0, 50, 50"}, 100, function() {
