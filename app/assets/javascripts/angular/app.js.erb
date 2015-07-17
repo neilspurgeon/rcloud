@@ -1,5 +1,6 @@
 var app = angular.module("rcloudApp", ["ngRoute"]);
 
+MainCtrl.$inject = ['$scope', '$http', '$interval'];
 app.controller("MainCtrl", function ($scope, $http, $interval) {
   $scope.currentUser = null;
   $scope.userLibrary = [];
