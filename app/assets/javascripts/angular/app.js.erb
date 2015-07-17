@@ -1,10 +1,5 @@
 var app = angular.module("rcloudApp", ["ngRoute"]);
-// // time filter
-// app.filter('secondsToDateTime', [function() {
-//     return function(seconds) {
-//         return new Date(1970, 0, 1).setSeconds(seconds);
-//     };
-// }]);
+
 app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $http, $interval) {
   $scope.currentUser = null;
   $scope.userLibrary = [];
