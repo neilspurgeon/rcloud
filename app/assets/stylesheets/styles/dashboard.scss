@@ -24,6 +24,9 @@
   }
 }
 
+
+
+
 .now-playing {
   .left {
     float: left;
@@ -43,6 +46,7 @@
   }
   .art {
     height: $topbar-height;
+    width: $topbar-height;
     float: right;
   }
   a {
@@ -57,16 +61,25 @@
     margin-top: 0;
   }
   .artist, .album {
-    font-size: .8em;
-    margin: 0;
+    font-size: .9em;
+    margin: 0 0 .2em;
   }
   .album {
     font-weight: 200;
   } 
+  .time {
+    font-size: .9em;
+    font-weight: 100; 
+    display: inline-flex;
+  }
+  .elapsed {
+    margin-right: .5em;
+  }
+  .total {
+    font-weight: 400;
+  }
 }
 
-.current-album-art {
-}
 
 // ---------------------------------------------------------------
 // Top Nav
@@ -227,8 +240,8 @@
     display: flex;
   }
   .artist, .album {
-    font-size: .8em;
-    margin: 0;
+    font-size: .9em;
+    margin: 0 0 .2em;
   }
   .album {
     font-weight: 200;
