@@ -168,7 +168,7 @@ var setRdioTrack = function(rdioTrack) {
   track.name = rdioTrack.name;
   track.artist = rdioTrack.artist;
   track.album = rdioTrack.album;
-  track.art = rdioTrack.icon400;
+  track.art = rdioTrack.icon;
   track.duration = rdioTrack.duration;
   track.url = rdioTrack.shortUrl; 
   return track;
@@ -194,9 +194,9 @@ var setSoundCloudTrack = function(soundCloudTrack) {
   track.art = soundCloudTrack.artwork_url;
   track.duration = (soundCloudTrack.duration / 1000);
   track.url = soundCloudTrack.permalink_url;
-  if (track.art) {
-    track.art = replaceImgSize(track.art);
-  }
+  // if (track.art) {
+  //   track.art = replaceImgSize(track.art);
+  // }
   return track;
 };
 
