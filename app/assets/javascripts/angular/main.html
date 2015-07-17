@@ -100,7 +100,7 @@
             <a href="" class="play" ng-click="playTrack(track)"><img src="/img/play-icon-white.svg" alt="Play"></img></a>
             <a href="" class="queue" ng-click="queueTrack(track)"><img src="/img/plus-icon-white.svg" alt="Add to Que"></img></a>
           </span>
-          <!-- <span class="duration">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span> -->
+          <!-- <span class="duration">{{track.duration}}</span> -->
         </li>
       </ul>
     </div>  
@@ -113,8 +113,8 @@
           <h4 class="name">{{nowPlaying.name || "name"}} </h4>
           <h6 class="artist">{{nowPlaying.artist || "artist"}} </h6>
 
-          <h1 class="elapsed">{{currentPosition | secondsToDateTime | date:'HH:mm:ss'}}</h1>
-          <h2 class="total">{{nowPlaying.duration || 0 | secondsToDateTime | date:'HH:mm:ss'}}</h2>
+          <h1 class="elapsed">{{currentPosition}}</h1>
+          <h2 class="total">{{nowPlaying.duration || 0}}</h2>
           <img class="current-album-art" ng-src="{{nowPlaying.art}}"/>
         </div>
       <div class="controls">
@@ -129,7 +129,7 @@
           <span class="name">{{track.name || "name"}}</span>
           <span class="artist">{{track.artist || "Artist"}}</span>
           <span class="album">{{track.album || "Album"}}</span>
-          <span class="duration">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span>
+          <span class="duration">{{track.duration}}</span>
         </li>
       </ul>
 
