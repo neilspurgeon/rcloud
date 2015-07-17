@@ -1,6 +1,6 @@
 // Routes
 
-app.config(function ($routeProvider, $httpProvider) {
+app.config(["$routeProvider", "$httpProvider", function ($routeProvider, $httpProvider) {
 
   $routeProvider
     .when("/", {
@@ -20,4 +20,4 @@ app.config(function ($routeProvider, $httpProvider) {
   
   $httpProvider
     .defaults.headers.common["X-CSRF-Token"] = $("meta[name=csrf-token]").attr("content");
-});
+}]);
