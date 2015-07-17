@@ -4,11 +4,33 @@ app.controller("MainCtrl", function ($scope, $http, $interval) {
   $scope.currentUser = null;
   $scope.userLibrary = [];
 
-  $http.get("/account.json")
-    .success(function (user) {
-      $scope.currentUser = user;
-      console.log("Get current User");
-  });
+  // $http.get("/account.json")
+  //   .success(function (user) {
+  //     $scope.currentUser = user;
+  //     console.log("Get current User");
+  // });
+
+  // Initialize
+  // –––––––––––––––––––––––––––––––––
+  // if user is connected with Rdio and SoundCloud
+  // load their library
+  var init = function () {
+    R.ready(function() {
+        if (R.authenticated() && getCookie('accessToken')) {
+          console.log("authenticated")
+          $scope.getLibrary()
+        } else {
+          console.log("not authenticated")
+        }
+    });
+  }
+
+  init();
+
+  // else load top tracks
+  // and display connect modal
+
+  // –––––––––––––––––––––––––––––––––
 
   $scope.soundCloudConnect = function() {
     SC.connect(function() {
