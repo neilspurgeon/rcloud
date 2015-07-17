@@ -58,6 +58,7 @@ $top-height: 40vh;
 
 $white: #FFF;
 $black: #000;
+$dark-grey: #222;
 $trans-white: rgba(255,255,255,0.8);
 $small: 45em;
 
@@ -75,7 +76,6 @@ body {
 
 .main-container {
   // margin-top: 8rem;
-  background-color: #339;
   @include container;
 }
 
@@ -98,4 +98,36 @@ body {
   transform: translateY(-50%);
 }
 
+$topbar-height: 8em;
+
+// ---------------------------------------------------------------
+// Off Canvas
+// ---------------------------------------------------------------
+
+.main-container {
+  width: 100%;
+  margin-top: $topbar-height;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+  background-color: $dark-grey;
+  min-height: calc(100vh - #{$topbar-height});
+}
+
+.off-canvas-area {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: -100vw;
+  background: $black;
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+}
+
+.off-canvas-container.open .main-container, .off-canvas-area.open {
+  -webkit-transform: translateX(-100vw);
+  transform: translateX(-100vw);
+}
 

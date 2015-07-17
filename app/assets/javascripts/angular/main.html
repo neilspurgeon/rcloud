@@ -2,7 +2,7 @@
 
 <!-- Top Nav -->
 
-<div class="top-bar-container">
+<div class="top-bar-container" ng-class="searchOverlay">
   <nav class="top-nav">
     <ul>
       <span class="logo"><a href="#">RCLOUD</a></span>
@@ -37,7 +37,7 @@
       </a>
     </form>
 
-    <div class="search-results-container" ng-class="searchOverlay">
+    <div class="search-results-container">
       <ul class="search-results">
         <li ng-repeat="track in search.results">
             <div class="border"></div>
@@ -97,8 +97,8 @@
             <h4 class="album">{{track.album}}</h4>
           </span>
           <span class="buttons">
-            <a href="" class="play" ng-click="playTrack(track)"><img src="/img/play-icon.svg" alt="Play"></img></a>
-            <a href="" class="queue" ng-click="queueTrack(track)"><img src="/img/plus-icon.svg" alt="Add to Que"></img></a>
+            <a href="" class="play" ng-click="playTrack(track)"><img src="/img/play-icon-white.svg" alt="Play"></img></a>
+            <a href="" class="queue" ng-click="queueTrack(track)"><img src="/img/plus-icon-white.svg" alt="Add to Que"></img></a>
           </span>
           <!-- <span class="duration">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span> -->
         </li>

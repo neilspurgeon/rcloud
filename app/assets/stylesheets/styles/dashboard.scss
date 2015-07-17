@@ -1,47 +1,3 @@
-$topbar-height: 8em;
-
-// ---------------------------------------------------------------
-// Off Canvas
-// ---------------------------------------------------------------
-.off-canvas-container {
-  position: absolute;
-  // overflow: hidden;
-  width: 100vw;
-  margin-top: $topbar-height;
-  height: calc(100vh - $topbar-height);
-}
-
-.main-container {
-  width: 100%;
-  height: calc(100vh - #{$topbar-height});
-  // position: relative;
-  -webkit-transform: translateX(0);
-  transform: translateX(0);
-  -webkit-transition: .3s ease all;
-  transition: .3s ease all;
-}
-
-.scrollable-content {
-  overflow: auto; 
-}
-
-.off-canvas-area {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  right: -100vw;
-  background: $black;
-  -webkit-transition: .3s ease all;
-  transition: .3s ease all;
-
-}
-
-.off-canvas-container.open .main-container, .off-canvas-area.open {
-  -webkit-transform: translateX(-100vw);
-  transform: translateX(-100vw);
-}
-
 // ---------------------------------------------------------------
 // Music Player Panel
 // ---------------------------------------------------------------
@@ -61,10 +17,6 @@ $topbar-height: 8em;
   img {
 
   }
-}
-
-.player-container.open {
-  display: inline-block;
 }
 
 .current-album-art {
@@ -179,7 +131,7 @@ $topbar-height: 8em;
   }
 }
 
-.search-results-container.searchOpen {
+.top-bar-container.searchOpen {
   height: 100vh;
   transition: all .01s ease;
   padding-bottom: 15em;
@@ -188,7 +140,9 @@ $topbar-height: 8em;
 .search-results-container {
   overflow: auto;
   width: 100%;
+  height: 100vh;
 }
+
 
 .search-results, .user-library {
   @include container;
@@ -233,19 +187,19 @@ $topbar-height: 8em;
   } 
 }
 
-.search-results {
+.search-results, .user-library{
   color: $white;
   a {
     color: $white;
   }
 }
 
-.user-library {
-  color: $black;
-  a {
-    color: $black;
-  }
-}
+// .user-library {
+//   color: $black;
+//   a {
+//     color: $black;
+//   }
+// }
 
 
 ul {
@@ -256,4 +210,11 @@ ul {
 li {
   list-style: none;
 }
+
+
+
+// ///////////////////////////////////////////
+
+
+
 
