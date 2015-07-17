@@ -29,7 +29,7 @@
     float: left;
     width: calc(100% - #{$topbar-height} - 2em);
     height: $topbar-height;
-    padding: 1em;
+    padding: .2em 1em;
   }
   .artist, .album, .duration { 
     margin: 0;
@@ -285,6 +285,10 @@
   .art, .text {
     height: 6em;
     margin-right: 1em;
+  }
+  img.art {
+    width: 6em;
+    min-width: 6em;
   }
   img {
     margin: 0;
