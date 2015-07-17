@@ -10,12 +10,18 @@
   width: 100%;
   display: inline-block;
   text-align: center;
-   .prev, .play {
+  color: $white;
+  .prev, .play {
+    @include span(2);
   }
   .next {
+    @include span(2 at 5);
   }
-  img {
+}
 
+.now-playing {
+  .name, .artist, .album, .duration {
+    @include span(6);
   }
 }
 
@@ -204,11 +210,3 @@ ul {
 li {
   list-style: none;
 }
-
-
-
-// ///////////////////////////////////////////
-
-
-
-

@@ -105,7 +105,7 @@ $topbar-height: 8em;
 
 // The width of the largest image size
 // any larger, artwork will pixelate
-$player-max-width: 400px;
+$player-max-width: 300px;
 
 .main-container {
   width: 100%;
@@ -120,9 +120,9 @@ $player-max-width: 400px;
 
 .off-canvas-area {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - #{$topbar-height});
   position: fixed;
-  top: 0;
+  top: $topbar-height;
   right: -100vw;
   background: $black;
   -webkit-transition: .3s ease all;
