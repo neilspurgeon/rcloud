@@ -83,7 +83,7 @@
   margin: 1em;
   height: 100vh;
   ul {
-    height: 100%;
+    height: calc(87vh - #{$topbar-height});
     overflow: auto;
   }
   li {
