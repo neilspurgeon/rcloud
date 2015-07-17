@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------
 
 // Breakpoints
-$bp-medium: 45em;
+$bp-medium: 401px;
 
 $susy: (
   flow: ltr,
@@ -60,7 +60,6 @@ $white: #FFF;
 $black: #000;
 $dark-grey: #222;
 $trans-white: rgba(255,255,255,0.8);
-$small: 45em;
 
 
 // ---------------------------------------------------------------
@@ -104,6 +103,10 @@ $topbar-height: 8em;
 // Off Canvas
 // ---------------------------------------------------------------
 
+// The width of the largest image size
+// any larger, artwork will pixelate
+$player-max-width: 400px;
+
 .main-container {
   width: 100%;
   margin-top: $topbar-height;
@@ -124,10 +127,18 @@ $topbar-height: 8em;
   background: $black;
   -webkit-transition: .3s ease all;
   transition: .3s ease all;
+  @include susy-breakpoint($bp-medium, 6) {
+    width: $player-max-width; 
+    right: -$player-max-width;
+  }
 }
 
 .off-canvas-container.open .main-container, .off-canvas-area.open {
   -webkit-transform: translateX(-100vw);
   transform: translateX(-100vw);
+  @include susy-breakpoint($bp-medium, 6) {
+    -webkit-transform: translateX(-$player-max-width);
+    transform: translateX(-$player-max-width);
+  }
 }
 

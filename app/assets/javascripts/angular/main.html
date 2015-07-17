@@ -25,7 +25,7 @@
   <!-- rdio + soundcloud search -->
 
     
-    <form ng-submit="search(search.query); searchOverlay='searchOpen'" class="api-search-bar">
+    <form ng-submit="search(search.query); searchOverlay='searchOpen'"; class="api-search-bar">
       <input ng-model="search.query" type="text" placeholder="Search artist, track, or album" />
       <!-- <input type="submit" /> -->
       <a href="" ng-class="searchCloseBttn" ng-click="searchOverlay=''; closeSearch()" ng-show="search.results" class="searchCloseBttn">
@@ -37,7 +37,7 @@
       </a>
     </form>
 
-    <div class="search-results-container">
+    <div class="search-results-container" ng-class="searchOverlay">
       <ul class="search-results">
         <li ng-repeat="track in search.results">
             <div class="border"></div>
