@@ -90,7 +90,7 @@
           <img src="img/rdio-white.png" />      
         </span>
         <div class="library-controls">
-        <button ng-click="">Connect</button>
+        <button ng-click="soundCloudConnect(); rdioConnect()">Connect</button>
           <!-- <button ng-click="soundCloudConnect()">SoundCloud Connect</button> -->
           <!-- <button ng-click="rdioConnect()">Rdio Connect</button> -->
           <button ng-click="getLibrary()">Refresh</button>
@@ -136,9 +136,9 @@
           </div>
           <img class="art" ng-src="{{nowPlaying.art}}"/>
           <div class="controls">
-            <a href="" class="prev" ng-click="previous()"><img src="img/prev-btn.svg" /></a>
-            <a href="" class="play" ng-click="togglePause()"><img ng-hide="playing" ng-show="!playing" src="./img/play-btn.svg" /><img ng-hide="!playing" ng-show="playing" src="./img/pause-icon.svg" /></a>
-            <a href="" class="next" ng-click="next()"><img src="./img/next-btn.svg" /></a>
+            <a href="" class="prev" ng-click="previous()"><img src="img/previous-icon-white.svg" /></a>
+            <a href="" class="play" ng-click="togglePause()"><img ng-hide="playing" ng-show="!playing" src="./img/play-icon-white.svg" /><img ng-hide="!playing" ng-show="playing" src="./img/pause-icon-white.svg" /></a>
+            <a href="" class="next" ng-click="next()"><img src="./img/next-icon-white.svg" /></a>
           </div>
         </div>
       

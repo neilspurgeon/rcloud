@@ -16,7 +16,7 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
   var init = function () {
     R.ready(function() {
       // load their library
-      if (R.authenticated() && getCookie('accessToken') && false) {
+      if (R.authenticated() && getCookie('accessToken')) {
         console.log("authenticated")
         $scope.getLibrary()
       } else {
@@ -109,6 +109,7 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
   };
 
   $scope.getLibrary = function() {
+    $scope.userLibrary = [];
     getRdioLibrary();
     getSoundCloudLibrary();
   };  
