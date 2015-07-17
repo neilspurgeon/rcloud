@@ -185,6 +185,7 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
     rcloud.play(track);
     $scope.nowPlaying = rcloud.queue[0];
 
+    $scope.playing = true;
     $scope.currentPosition = 0;
     // stop currently running interval
     $interval.cancel($scope.getTime);
@@ -206,15 +207,18 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
     rcloud.queue.push(track);
   };
 
+  $scope.playing = false;
   $scope.togglePause = function() {
     rcloud.togglePause();
     
     if (rcloud.playing) {
+      $scope.playing = true;
       // start interval if not playing
       $scope.getTime = $interval(callAtInterval, 1000);
     } else if (rcloud.playing === false){
       // stop currently running interval if playing
       $interval.cancel($scope.getTime);
+      $scope.playing = false;
       if (!rcloud.nowPlaying) {
         // noting playing; play first in queue...
         rcloud.play(rcloud.queue[0]);
