@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # devise_for :users
 
   root to: 'welcome#index'
   
-  get '/account', to: 'users#show', as: 'account'
+  # get '/account', to: 'users#show', as: 'account'
 end
 
 
