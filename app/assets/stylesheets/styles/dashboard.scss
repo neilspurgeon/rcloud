@@ -81,6 +81,11 @@
 
 .player-queue {
   margin: 1em;
+  height: 100vh;
+  ul {
+    height: 100%;
+    overflow: auto;
+  }
   li {
     padding: 1em 0;
     border-bottom: 1px solid rgba(255,255,255,.5);

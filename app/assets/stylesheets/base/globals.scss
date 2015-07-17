@@ -69,6 +69,7 @@ $trans-white: rgba(255,255,255,0.8);
 // ---------------------------------------------------------------
 html {
   background-color: $dark-grey;
+  overflow: hidden;
 }
 
 body {
@@ -155,6 +156,11 @@ $player-max-width: 300px;
     height: 100vh;
     z-index: 9999;
   }
+}
+
+.off-canvas-container {
+  height: 100vh;
+  overflow: auto;
 }
 
 .off-canvas-container.open .main-container, .off-canvas-area.open {
