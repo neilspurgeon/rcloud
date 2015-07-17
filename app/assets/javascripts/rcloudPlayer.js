@@ -15,7 +15,7 @@ var RcloudPlayer = function () {
   // SoundCloud player Init
   SC.initialize({
     client_id: 'f3a51baca351723ad612f5318b1be836',
-    redirect_uri: 'http://localhost:3000/#/'
+    redirect_uri: 'https://rcloudio.herokuapp.com/#/'
   });
 };
 

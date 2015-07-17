@@ -56,6 +56,8 @@ body {
 
 $sidebar-width: 15em;
 $top-height: 40vh;
+$top-height-large: 35vh;
+
 
 $white: #FFF;
 $black: #000;
@@ -114,6 +116,11 @@ li {
 }
 
 $topbar-height: 8em;
+
+@include susy-breakpoint($bp-medium, 12) {
+  $topbar-height: 7em;
+}
+
 
 // ---------------------------------------------------------------
 // Off Canvas

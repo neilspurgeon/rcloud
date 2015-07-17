@@ -102,6 +102,12 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
               // for dev purpose: REMOVE
               lib = $scope.userLibrary;
             }
+            // put something in the queue if empty. 
+            // Change to load from local storage.
+            if (!rcloud.queue[0]) {
+              rcloud.queue.push($scope.userLibrary[0]);
+              $scope.nowPlaying = rcloud.queue[0];
+            }
           });
         }
       });
