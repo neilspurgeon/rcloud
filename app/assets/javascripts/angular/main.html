@@ -39,9 +39,12 @@
         <li ng-repeat="track in search.results">
             <div class="border"></div>
             <span class="track">
-              <h2 class="title"><a href="" ng-click="playTrack(track)">{{track.name}}</a></h2>
-              <h3 class="artist">{{track.artist}}</h3>
-              <h4 class="album">{{track.album}}</h4>
+              <img class="art" src="{{track.art}}" alt="art"></img>
+              <span class="text">
+                <h2 class="title"><a href="" ng-click="playTrack(track)">{{track.name}}</a></h2>
+                <h3 class="artist">{{track.artist}}</h3>
+                <h4 class="album">{{track.album}}</h4>
+              </span>
             </span>
             <span class="buttons">
               <a href="" class="play" ng-click="playTrack(track)"><img src="/img/play-icon-white.svg" alt="Play"></img></a>
@@ -86,18 +89,24 @@
           <img src="img/powered_by_soundcloud-white.png" />
           <img src="img/rdio-white.png" />      
         </span>
-        <button ng-click="soundCloudConnect()">SoundCloud Connect</button>
-        <button ng-click="rdioConnect()">Rdio Connect</button>
-        <button ng-click="getLibrary()">Refresh</button>
+        <div class="library-controls">
+        <button ng-click="">Connect</button>
+          <!-- <button ng-click="soundCloudConnect()">SoundCloud Connect</button> -->
+          <!-- <button ng-click="rdioConnect()">Rdio Connect</button> -->
+          <button ng-click="getLibrary()">Refresh</button>
+        </div>
       </header>
       
       <ul class="user-library">
         <li ng-repeat="track in userLibrary | orderBy:'-artist'">
           <div class="border"></div>
           <span class="track">
-            <h2 class="title"><a href="" ng-click="playTrack(track)">{{track.name}}</a></h2>
-            <h3 class="artist">{{track.artist}}</h3>
-            <h4 class="album">{{track.album}}</h4>
+            <img class="art" src="{{track.art}}" alt="art"></img>
+            <span class="text">
+              <h2 class="title"><a href="" ng-click="playTrack(track)">{{track.name}}</a></h2>
+              <h3 class="artist">{{track.artist}}</h3>
+              <h4 class="album">{{track.album}}</h4>
+            </span>
           </span>
           <span class="buttons">
             <a href="" class="play" ng-click="playTrack(track)"><img src="/img/play-icon-white.svg" alt="Play"></img></a>

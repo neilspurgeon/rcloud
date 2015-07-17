@@ -190,7 +190,7 @@
 }
 
 // ---------------------------------------------------------------
-// API Search Results
+// API Search Results, User Library
 // ---------------------------------------------------------------
 
 .search-results, .user-library {
@@ -224,6 +224,7 @@
   }
   .track {
     @include span(5);
+    display: flex;
   }
   .artist, .album {
     font-size: .8em;
@@ -232,6 +233,14 @@
   .album {
     font-weight: 200;
   } 
+  .art, .text {
+    height: 6em;
+    margin-right: 1em;
+  }
+  img {
+    margin: 0;
+    width: 6em;
+  }
 }
 
 .search-results, .user-library{
@@ -255,14 +264,20 @@ button {
 }
 .credits {
   @include span(3);
+  height: 4em;
   img {
     padding: 1em 1em 1em 0;
   }
 }
 
-.user-library {
+.library-controls {
+  @include span(3 at 4);
+  height: 4em;
+  @include vertical-align-parent;
+  text-align: right;
   button {
-    color: $black;
+    @include vertical-align-child;
+    margin-left: 1em;
   }
 }
 
