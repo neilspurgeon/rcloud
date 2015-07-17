@@ -1,35 +1,45 @@
+$topbar-height: 8em;
+
 // ---------------------------------------------------------------
 // Off Canvas
 // ---------------------------------------------------------------
 .off-canvas-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 5000px
+  position: absolute;
+  // overflow: hidden;
+  width: 100vw;
+  margin-top: $topbar-height;
+  height: calc(100vh - $topbar-height);
 }
 
 .main-container {
   width: 100%;
-  height: 100%;
-  position: relative;
+  height: calc(100vh - #{$topbar-height});
+  // position: relative;
   -webkit-transform: translateX(0);
   transform: translateX(0);
   -webkit-transition: .3s ease all;
   transition: .3s ease all;
 }
 
-.off-canvas-area {
-  width: 300px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: -300px;
-  background: $black;
+.scrollable-content {
+  overflow: auto; 
 }
 
-.off-canvas-container.open .main-container {
-  -webkit-transform: translateX(-300px);
-  transform: translateX(-300px);
+.off-canvas-area {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: -100vw;
+  background: $black;
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+
+}
+
+.off-canvas-container.open .main-container, .off-canvas-area.open {
+  -webkit-transform: translateX(-100vw);
+  transform: translateX(-100vw);
 }
 
 // ---------------------------------------------------------------
@@ -37,15 +47,7 @@
 // ---------------------------------------------------------------
 
 .player-container {
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 990;
-  color: #FFF;
-  background-color: #000;
-  display: none;
+  color: $white;
 }
 
 .controls {
@@ -76,6 +78,7 @@
 .top-bar-container {
   @include container;
   width: 100%;
+  height: $topbar-height;
   position: fixed;
   top: 0;
   z-index: 999;

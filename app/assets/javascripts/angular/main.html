@@ -54,9 +54,10 @@
       </ul>
     </div>
   </div>
+</div>
 
-<!--   <!--  library filters -->
-  <div class="library-filters">
+<!--  library filters -->
+<!--   <div class="library-filters">
     <div class="library-filter-labels">
       LABELS
     </div>
@@ -73,8 +74,7 @@
       FILTER ALBUMS     
     </div>
 
-  </div>
-</div> -->
+  </div> -->
 
 <!-- Main  -->
 
@@ -103,40 +103,42 @@
           <!-- <span class="duration">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span> -->
         </li>
       </ul>
-    </div>
+    </div>  
+  </div>
 
-    <div class="off-canvas-area">
-      <!-- Player -->
-      <div class="player-container">
-        
-        <div class="track-info">
-          <h4 class="track">{{nowPlaying.name || nowPlaying.title}} </h4>
-          <h6 class="artist">{{nowPlaying.artist || nowPlaying.user.username}} </h6>
-        </div>
-
-        <div class="track-time">
-          <h1 class="elapsed">{{currentPosition | secondsToDateTime | date:'HH:mm:ss'}}</h2>
-          <h2 class="total">{{nowPlaying.duration || 0 | secondsToDateTime | date:'HH:mm:ss'}}</h2>
-        </div>
-
-        <div class="controls">
-          <a href="" class="prev" ng-click="previous()"><img src="img/prev-btn.svg" /></a>
-          <a href="" class="play" ng-click="togglePause()"><img src="./img/play-btn.svg" /></a>
-          <a href="" class="next" ng-click="next()"><img src="./img/next-btn.svg" /></a>
-        </div>
-        <img class="current-album-art" ng-src="{{nowPlaying.art}}"/>
-
-        <ul>
-          <li ng-repeat="track in queue track by $index">
-            <a href="" class="save" ng-click="playTrack(track)">Play</a>
-            <span class="">{{track.name || "name"}}</span>
-            <span class="">{{track.artist}}</span>
-            <span class="">{{track.album}}</span>
-            <span class="">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span>
-          </li>
-        </ul>
-
+  <div class="off-canvas-area" ng-class="menuOpen ? 'open' : 'null'">
+    <!-- Player -->
+    <div class="player-container">
+      
+      <div class="track-info">
+        <h4 class="track">{{nowPlaying.name || nowPlaying.title}} </h4>
+        <h6 class="artist">{{nowPlaying.artist || nowPlaying.user.username}} </h6>
       </div>
+
+      <div class="track-time">
+        <h1 class="elapsed">{{currentPosition | secondsToDateTime | date:'HH:mm:ss'}}</h2>
+        <h2 class="total">{{nowPlaying.duration || 0 | secondsToDateTime | date:'HH:mm:ss'}}</h2>
+      </div>
+
+      <div class="controls">
+        <a href="" class="prev" ng-click="previous()"><img src="img/prev-btn.svg" /></a>
+        <a href="" class="play" ng-click="togglePause()"><img src="./img/play-btn.svg" /></a>
+        <a href="" class="next" ng-click="next()"><img src="./img/next-btn.svg" /></a>
+      </div>
+      <img class="current-album-art" ng-src="{{nowPlaying.art}}"/>
+
+      <ul>
+        <li ng-repeat="track in queue track by $index">
+          <a href="" class="save" ng-click="playTrack(track)">Play</a>
+          <span class="">{{track.name || "name"}}</span>
+          <span class="">{{track.artist}}</span>
+          <span class="">{{track.album}}</span>
+          <span class="">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span>
+        </li>
+      </ul>
+
     </div>
   </div>
 </div>
+
+
