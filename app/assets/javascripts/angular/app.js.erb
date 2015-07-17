@@ -35,9 +35,10 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
                 var track = tracks[i];
                 var rcloudTrack = setRdioTrack(track);
                 $scope.userLibrary.push(rcloudTrack);
-                // for dev purpose: REMOVE
-                lib = $scope.userLibrary;
               }
+              // set first track in queue and update nowPlaying
+              rcloud.queue.push($scope.userLibrary[0]);
+              $scope.nowPlaying = rcloud.queue[0];
             });
           },
           error: function(response) {
@@ -78,8 +79,6 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
           var track = tracks[i];
           var rcloudTrack = setSoundCloudTrack(track);
           $scope.userLibrary.push(rcloudTrack);
-          // for dev purpose: REMOVE
-          lib = $scope.userLibrary;
         }
       });  
     });
@@ -211,12 +210,16 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
     rcloud.togglePause();
     
     if (rcloud.playing) {
-      // stop currently running interval if playing
+      // start interval if not playing
       $scope.getTime = $interval(callAtInterval, 1000);
     } else if (rcloud.playing === false){
-      // start interval if not playing
+      // stop currently running interval if playing
       $interval.cancel($scope.getTime);
-      
+      if (!rcloud.nowPlaying) {
+        // noting playing; play first in queue...
+        rcloud.play(rcloud.queue[0]);
+      }
+
     }
   };
 
