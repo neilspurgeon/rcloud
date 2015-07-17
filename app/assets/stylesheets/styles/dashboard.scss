@@ -11,7 +11,7 @@
   display: inline-block;
   text-align: center;
   color: $white;
-  padding: 1em 0;
+  padding: 1em 0 0;
   border-top: solid 1px $dark-grey;
   .prev, .play {
     @include span(2);
@@ -23,9 +23,6 @@
     width: 50%;
   }
 }
-
-
-
 
 .now-playing {
   .left {
@@ -79,6 +76,40 @@
     font-weight: 400;
   }
 }
+
+// player queue
+
+.player-queue {
+  margin: 1em;
+  li {
+    padding: 1em 0;
+    border-bottom: 1px solid rgba(255,255,255,.5);
+  }
+  .name {
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 400;
+    margin-top: 0;
+  }
+  .artist, .album {
+    font-size: .9em;
+    margin: 0 0 .2em;
+  }
+  .album {
+    font-weight: 200;
+  } 
+  .time {
+    font-size: .9em;
+    font-weight: 100; 
+    display: inline-flex;
+  }
+  .play img {
+    opacity: .5;
+    width: 2em;
+    float: right;
+  }
+}
+
 
 
 // ---------------------------------------------------------------

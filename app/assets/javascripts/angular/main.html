@@ -141,16 +141,18 @@
             <a href="" class="next" ng-click="next()"><img src="./img/next-btn.svg" /></a>
           </div>
         </div>
-
-      <ul>
-        <li ng-repeat="track in queue track by $index">
-          <a href="" class="save" ng-click="playTrack(track)">Play</a>
-          <h2 class="name">{{track.name || "name"}}</h2>
-          <h3 class="artist">{{track.artist || "Artist"}}</h3>
-          <h4 class="album">{{track.album || "Album"}}</h4>
-          <span class="duration">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span>
-        </li>
-      </ul>
+      
+      <div class="player-queue">
+        <ul>
+          <li ng-repeat="track in queue track by $index">
+            <h2 class="name">{{track.name}}</h2>
+            <a href="" class="play" ng-click="playTrack(track)"><img src="/img/play-icon-white.svg" alt="Play"></img></a>
+            <h3 class="artist">{{track.artist}}</h3>
+            <h4 class="album">{{track.album}}</h4>
+            <!-- <span class="duration">{{track.duration | secondsToDateTime | date:'HH:mm:ss'}}</span> -->
+          </li>
+        </ul>
+      </div>
 
     </div>
   </div>
