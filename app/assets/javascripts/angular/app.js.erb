@@ -132,6 +132,8 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
 
   $scope.search = function(query) {
     $scope.search.results = [];
+    angular.element(document).find("form")[0].reset();
+    angular.element(document).find("form")[0].blur();
 
     // Rdio Search
     // –––––––––––––––
@@ -156,10 +158,7 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
         });
         
         // reset form       
-        $scope.query = null;
-        angular.element("form")[0].reset();
-        angular.element("form")[0].blur();
-        // update scope        
+        $scope.query = null;   
         
       },
       error: function(response) {
