@@ -11,18 +11,58 @@
   display: inline-block;
   text-align: center;
   color: $white;
+  padding: 1em 0;
+  border-top: solid 1px $dark-grey;
   .prev, .play {
     @include span(2);
   }
   .next {
     @include span(2 at 5);
   }
+  img {
+    width: 50%;
+  }
 }
 
 .now-playing {
-  .name, .artist, .album, .duration {
-    @include span(6);
+  .left {
+    float: left;
+    width: calc(100% - #{$topbar-height} - 2em);
+    height: $topbar-height;
+    padding: 1em;
   }
+  .artist, .album, .duration { 
+    margin: 0;
+  }
+  .name {
+    margin-top: 0;
+  }
+  .name, .artist, .album, .duration {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .art {
+    height: $topbar-height;
+    float: right;
+  }
+  a {
+    font-size: .9em;
+    font-weight: 300;
+    text-decoration: none;
+    color: $white;
+  }
+  .title {
+    font-size: 1em;
+    font-weight: 400;
+    margin-top: 0;
+  }
+  .artist, .album {
+    font-size: .8em;
+    margin: 0;
+  }
+  .album {
+    font-weight: 200;
+  } 
 }
 
 .current-album-art {
@@ -55,6 +95,9 @@
   }
   :-ms-input-placeholder {  
    color: $trans-white;
+  }
+  @include susy-breakpoint($bp-large, 12) {
+    width: calc(100% - #{$player-max-width});
   }
 }
 
@@ -99,7 +142,9 @@
 }
 
 #menu-bttn {
-  // display: inline-block;
+  @include susy-breakpoint($bp-large, 12) {
+    display: none;
+  }
 }
 
 // ---------------------------------------------------------------
@@ -144,6 +189,9 @@
   height: 100vh;
 }
 
+// ---------------------------------------------------------------
+// API Search Results
+// ---------------------------------------------------------------
 
 .search-results, .user-library {
   @include container;
@@ -170,7 +218,6 @@
     }
   }
   .title {
-    // @include span(6);
     font-size: 1em;
     font-weight: 400;
     margin-top: 0;
@@ -184,7 +231,6 @@
   }
   .album {
     font-weight: 200;
-    // @include span(3 at 4);
   } 
 }
 
@@ -195,18 +241,20 @@
   }
 }
 
+// ---------------------------------------------------------------
+// Library
+// ---------------------------------------------------------------
+
+.credits {
+  @include span(4);
+  img {
+    padding: 1em 1em 1em 0;
+  }
+}
+
 .user-library {
   button {
     color: $black;
   }
 }
 
-
-ul {
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  list-style: none;
-}

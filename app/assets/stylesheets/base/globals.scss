@@ -4,6 +4,7 @@
 
 // Breakpoints
 $bp-medium: 401px;
+$bp-large: 750px;
 
 $susy: (
   flow: ltr,
@@ -63,13 +64,13 @@ $trans-white: rgba(255,255,255,0.8);
 
 
 // ---------------------------------------------------------------
-// HTML, Body
+// HTML, Body, Lists
 // ---------------------------------------------------------------
 
 body {
   margin: 0;
-  @include susy-breakpoint($bp-medium, 12) {
-    // padding: $top-height 0 0 $sidebar-width;  
+  @include susy-breakpoint($bp-large, 12) {
+    position: absolute;
   }
 }
 
@@ -77,6 +78,16 @@ body {
   // margin-top: 8rem;
   @include container;
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
 
 // ---------------------------------------------------------------
 // Mixins
@@ -116,6 +127,9 @@ $player-max-width: 300px;
   transition: .3s ease all;
   background-color: $dark-grey;
   min-height: calc(100vh - #{$topbar-height});
+  @include susy-breakpoint($bp-large, 12) {
+    width: calc(100vw - #{$player-max-width});
+  }
 }
 
 .off-canvas-area {
@@ -130,6 +144,12 @@ $player-max-width: 300px;
   @include susy-breakpoint($bp-medium, 6) {
     width: $player-max-width; 
     right: -$player-max-width;
+  }
+  @include susy-breakpoint($bp-large, 12) {
+    top: 0;
+    right: 0;
+    height: 100vh;
+    z-index: 9999;
   }
 }
 
