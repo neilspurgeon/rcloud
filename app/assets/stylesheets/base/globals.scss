@@ -60,12 +60,16 @@ $top-height: 40vh;
 $white: #FFF;
 $black: #000;
 $dark-grey: #222;
+$light-grey: #444;
 $trans-white: rgba(255,255,255,0.8);
 
 
 // ---------------------------------------------------------------
 // HTML, Body, Lists
 // ---------------------------------------------------------------
+html {
+  background-color: $dark-grey;
+}
 
 body {
   margin: 0;

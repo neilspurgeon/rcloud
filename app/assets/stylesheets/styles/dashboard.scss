@@ -245,8 +245,16 @@
 // Library
 // ---------------------------------------------------------------
 
+button {
+  color: $white;
+  background-color: transparent;
+  border: 1px solid $white;
+  border-radius: .5em;
+  font-size: .8em;
+  padding: .2em 1em;
+}
 .credits {
-  @include span(4);
+  @include span(3);
   img {
     padding: 1em 1em 1em 0;
   }
@@ -257,4 +265,54 @@
     color: $black;
   }
 }
+
+// ---------------------------------------------------------------
+// Footer
+// ---------------------------------------------------------------
+
+.off-canvas-container footer {
+  padding: 2em 0;
+  text-align: center;
+  color: $light-grey;
+  background-color: none;
+  p {
+    color: #444;
+    font-size: .8em;
+    font-weight: 400;
+    line-height: .8em;
+  }
+  a {
+    color: $light-grey;
+    font-weight: 500;
+  }
+  .links {
+    display: inline-flex;
+  }
+  .links a {
+    padding: 0 1em;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
