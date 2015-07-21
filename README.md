@@ -2,7 +2,7 @@
 
 ### About
 
-rcloud.io
+[rcloud.io](http://rcloud.io/)
 
 Rcloud aims to seamlessly blend SoundCloud and Rdio's music libraries and players into one integrated application. 
 
