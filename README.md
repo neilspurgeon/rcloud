@@ -39,9 +39,3 @@ Currently, Rcloud is an entirely front-end application. There is however a user 
 - Add duration to track info.
 - Album, Artist, and Track filters in both library and search results.
 - Add signup/login routes. Use user model to store Rdio and SoundCloud connect access tokens and info. 
-
-###Installation
-1. ```git clone https://github.com/neilspurgeon/rcloud.git```
-2. ```bundle install```
-3. ```rake db:create```
-4. ```rails s```
