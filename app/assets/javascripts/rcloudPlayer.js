@@ -80,19 +80,19 @@ RcloudPlayer.prototype.play = function (track) {
       //   console.log(html5Audio.currentTime);
       // };
 
-      // self.soundCloud._html5Audio.addEventListener("ended", function(){ 
-      //   alert("ended");
-      //   self.next();
-      //   // // remove finished track from queue
-      //   // self.queue.splice(0,1);
-      //   // // play next track
-      //   // if (self.queue[0]) {
-      //   //   self.play(self.queue[0]);
-      //   //   console.log("Playing next track");
-      //   // } else {
-      //   //   console.log("Nothing in queue");
-      //   // }
-      // });
+      self.soundCloud._html5Audio.addEventListener("ended", function(){ 
+        alert("ended");
+        self.next();
+        // remove finished track from queue
+        self.queue.splice(0,1);
+        // play next track
+        if (self.queue[0]) {
+          self.play(self.queue[0]);
+          console.log("Playing next track");
+        } else {
+          console.log("Nothing in queue");
+        }
+      });
 
       // self.soundCloud.pause();
       // self.soundCloud.play();
