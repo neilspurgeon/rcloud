@@ -9,7 +9,7 @@ Rcloud aims to seamlessly blend SoundCloud and Rdio's music libraries and player
 At it's core, Rcloud is wrapper for both their api's. For each function, Rcloud conditionally switches bewtween using either Rdio or SoundCloud, or both in situations such as searching libraries.
 
 ######Note: 
-Currently, Rcloud is an entirely front-end application. There is however a user signup/login and database that is unused at the momement. For future features, login will be necessary. 
+Currently, Rcloud is an entirely front-end application. There is however a user signup/login and user database that is unused at the momement. For future features, login will be necessary. 
 
 ###Technologies Used
 - Ruby On Rails
