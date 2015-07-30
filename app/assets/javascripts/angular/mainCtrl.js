@@ -11,8 +11,8 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
 
       // load their library if connected
       if (R.authenticated() && getCookie("accessToken")) {
-        console.log("authenticated")
-        $scope.getLibrary()
+        console.log("authenticated");
+        $scope.getLibrary();
       } else { 
         // load top tracks if user isn't connected 
         R.request({
@@ -41,7 +41,7 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
         });
       }
     });
-  }
+  };
 
   init();
 
@@ -49,7 +49,7 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
   // –––––––––––––––––––––––––––––––––
   $scope.soundCloudConnect = function() {
     SC.connect(function() {
-      SC.get('/me', function(response) {
+      SC.get("/me", function(response) {
         var value = SC.accessToken();
         createCookie("accessToken", value, 30);
       });
@@ -69,8 +69,8 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
   };  
 
   var getSoundCloudLibrary = function() {
-    var token = getCookie('accessToken');
-    SC.get('/me/favorites?oauth_token=' + token, function(response) {
+    var token = getCookie("accessToken");
+    SC.get("/me/favorites?oauth_token=" + token, function(response) {
       
       var tracks = response;
       $scope.$apply(function(){
@@ -153,7 +153,7 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
 
     // SoundCloud Search
     // –––––––––––––––
-    SC.get('/tracks', { q: query, license: 'cc-by-sa' }, function(tracks) {
+    SC.get("/tracks", { q: query, license: "cc-by-sa" }, function(tracks) {
       $scope.$apply(function(){
         for(var i=0; i<tracks.length; i++) {
           var track = tracks[i];
@@ -267,6 +267,6 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
         lineThree.animate({"y1":"95", "y2":"95"}, 100, mina.ease);  
       });   
     }
-  }
+  };
 
 }]);
