@@ -1,4 +1,4 @@
-var app = angular.module("rcloudApp", ["ngRoute"]);
+
 
 app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $http, $interval) {
   $scope.currentUser = null;
