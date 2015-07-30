@@ -4,31 +4,24 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
   $scope.currentUser = null;
   $scope.userLibrary = [];
 
-  // $http.get("/account.json")
-  //   .success(function (user) {
-  //     $scope.currentUser = user;
-  //     console.log("Get current User");
-  // });
-
   // Initialize
   // –––––––––––––––––––––––––––––––––
-  // if user is connected with Rdio and SoundCloud
   var init = function () {
     R.ready(function() {
-      // load their library
-      if (R.authenticated() && getCookie('accessToken')) {
+
+      // load their library if connected
+      if (R.authenticated() && getCookie("accessToken")) {
         console.log("authenticated")
         $scope.getLibrary()
-      } else {
-        // else load top tracks
-        // and display connect modal
-        console.log("not authenticated")
+      } else { 
+        // load top tracks if user isn't connected 
         R.request({
           method: "getTopCharts", 
           content: {
             type: "Track"
           },
           success: function(response) {
+            // add returned tracks to library 
             var tracks = response.result;
             $scope.$apply(function(){
               for(var i=0; i<tracks.length; i++ ) {  
@@ -36,6 +29,7 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
                 var rcloudTrack = setRdioTrack(track);
                 $scope.userLibrary.push(rcloudTrack);
               }
+
               // set first track in queue and update nowPlaying
               rcloud.queue.push($scope.userLibrary[0]);
               $scope.nowPlaying = rcloud.queue[0];
@@ -51,8 +45,8 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
 
   init();
 
+  // API Interactions
   // –––––––––––––––––––––––––––––––––
-
   $scope.soundCloudConnect = function() {
     SC.connect(function() {
       SC.get('/me', function(response) {
@@ -67,6 +61,12 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
       R.authenticate();
     // });
   };
+
+  $scope.getLibrary = function() {
+    $scope.userLibrary = [];
+    getRdioLibrary();
+    getSoundCloudLibrary();
+  };  
 
   var getSoundCloudLibrary = function() {
     var token = getCookie('accessToken');
@@ -112,22 +112,6 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
         }
       });
     }
-  };
-
-  $scope.getLibrary = function() {
-    $scope.userLibrary = [];
-    getRdioLibrary();
-    getSoundCloudLibrary();
-  };  
-
-  $scope.signIn = function() {
-  };
-
-  $scope.signOut = function() {
-    $http.delete("/users/sign_out.json")
-      .success(function(res) {
-        $scope.currentUser = null;
-      });
   };
 
   $scope.search = function(query) {
@@ -185,7 +169,15 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
     $scope.search.results = null;
   };
 
+
+  // Rcloud Player Controls
+  // –––––––––––––––––––––––––––––––––
+  
+  // set defaults 
+  $scope.playing = false;
   $scope.currentPosition = 0;
+  $scope.queue = rcloud.queue;
+
   $scope.playTrack = function(track) {  
     rcloud.stop();  
     rcloud.play(track);
@@ -195,11 +187,10 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
     $scope.currentPosition = 0;
     // stop currently running interval
     $interval.cancel($scope.getTime);
-    $scope.getTime = $interval(callAtInterval, 1000);
+    $scope.getTime = $interval(getCurrentTime, 1000);
   };
 
-  var callAtInterval = function() {
-      console.log("Interval occurred");
+  var getCurrentTime = function() {
       if (rcloud.nowPlayingSource === "rdio") {
         $scope.currentPosition = R.player.position();
       } else if (rcloud.soundCloud && rcloud.nowPlayingSource === "soundCloud") {
@@ -207,13 +198,10 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
       }
   };
 
-  $scope.queue = rcloud.queue;
-
   $scope.queueTrack = function(track) {
     rcloud.queue.push(track);
   };
 
-  $scope.playing = false;
   $scope.togglePause = function() {
     rcloud.togglePause();
     
@@ -229,17 +217,20 @@ app.controller("MainCtrl", ["$scope", "$http", "$interval", function ($scope, $h
         // noting playing; play first in queue...
         rcloud.play(rcloud.queue[0]);
       }
-
     }
   };
 
   $scope.previous = function() {
-    // R.player.previous();
+    rcloud.previous();
   };
   
   $scope.next = function() {
     rcloud.next();
   };
+
+
+  // Mobile Menu
+  // –––––––––––––––––––––––––––––––––
 
   $scope.menuOpen = false;
   
