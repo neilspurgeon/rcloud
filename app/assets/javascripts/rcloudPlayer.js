@@ -194,9 +194,6 @@ var setSoundCloudTrack = function(soundCloudTrack) {
   track.art = soundCloudTrack.artwork_url;
   track.duration = (soundCloudTrack.duration / 1000);
   track.url = soundCloudTrack.permalink_url;
-  // if (track.art) {
-  //   track.art = replaceImgSize(track.art);
-  // }
   return track;
 };
 
