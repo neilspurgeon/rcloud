@@ -2,9 +2,6 @@ source 'https://rubygems.org'
 
 gem 'normalize-rails'
 
-# user .env file to store api keys
-gem 'dotenv-rails', :groups => [:development, :test]
-
 # use devise to handle users
 gem 'devise'
 
