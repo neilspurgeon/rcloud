@@ -31,7 +31,8 @@ Currently, Rcloud is an entirely front-end application. There is however a user 
 - Updates current track duration while playing.
 - Mobile first design. Plays across all devices.
 
-###Coming Soon Features
+###Coming Soon
+#####Features
 - Use local storage to store queue.
 - Remove tracks from queue.
 - Go back through previous tracks.
@@ -39,3 +40,9 @@ Currently, Rcloud is an entirely front-end application. There is however a user 
 - Add duration to track info.
 - Album, Artist, and Track filters in both library and search results.
 - Add signup/login routes. Use user model to store Rdio and SoundCloud connect access tokens and info. 
+
+#####UI/UX
+- Add rollover and hover states to buttons.
+- Animate/auto-scroll current track text when it gets cut off.
+- Add loading animated SVG loading icon for search and library.
+- Add connect prompt/overlay if user is not connected.
